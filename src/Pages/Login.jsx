@@ -15,7 +15,11 @@ export default function Login() {
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || 'Login failed');
+            localStorage.setItem("userId", data.userId);
+            localStorage.setItem("token", data.token);
+            console.log(data.userId);
             console.log('Logged in!', data);
+            navigate('/dashboard')
         }
         catch(error){
             console.error('Login error:', error);

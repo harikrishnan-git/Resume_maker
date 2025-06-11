@@ -28,10 +28,22 @@ const loginUser = async(req,res)=>{
         //create a token
         const token = createToken(user._id);
 
-        res.status(200).json({email,token});
+        res.status(200).json({email,token,userId: user._id});
     }catch(error){
         res.status(400).json({error:error.message});
     }
 }
 
-module.exports = {registerUser,loginUser};
+// GET /api/user/:userId
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select('name');
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+module.exports = {registerUser,loginUser,getUserById};

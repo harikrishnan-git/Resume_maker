@@ -2,13 +2,18 @@ import React from 'react'
 import {useState} from 'react'
 
 export default function ResumeForm() {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     const [expForm, setExpForm] = useState([
         {company: '', role: '', duration: '' }
     ]);
     const [educationFields, setEducationFields] = useState([
     { degree: '', institution: '', year: '', cgpa: '' },
   ]);
-
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [objective, setObjective] = useState('');
   const [skills,setSkills] = useState([]);
   const [certifications, setCertifications] = useState([]);
   const [achievements, setAchievements] = useState([]);
@@ -91,6 +96,28 @@ export default function ResumeForm() {
     setSkills(updatedSkills);
   }
 
+  const handleSubmit=async()=>{
+    const resumeData = {name,
+      email,
+      address,
+      objective,
+      skills,
+      education: educationFields,
+      experience: expForm,
+      referral,
+      certifications,
+      achievements,
+      languages,}
+    await fetch(`http://localhost:4000/api/user/${userId}/create-resume`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, 
+      },
+      body: JSON.stringify(resumeData),
+    });
+  }
+
 return (
   <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-8">
     <h1 className="text-3xl font-bold text-center mb-6">Resume Builder</h1>
@@ -99,16 +126,16 @@ return (
     <section>
       <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" placeholder="Full Name" className="input" />
-        <input type="email" placeholder="Email" className="input" />
-        <textarea placeholder="Address" className="input md:col-span-2" />
+        <input type="text" placeholder="Full Name" className="input" value={name} onChange={(e)=>setName(e.target.value)} />
+        <input type="email" placeholder="Email" className="input" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <textarea placeholder="Address" className="input md:col-span-2" value={address} onChange={(e)=>setAddress(e.target.value)}/>
       </div>
     </section>
 
     {/* Career Objective */}
     <section>
       <h2 className="text-xl font-semibold mb-4">Career Objective</h2>
-      <textarea placeholder="Your career objective..." className="input w-full" />
+      <textarea placeholder="Your career objective..." className="input w-full" value={objective} onChange={(e)=>setObjective(e.target.value)}/>
     </section>
 
     {/* Skills */}
@@ -189,6 +216,7 @@ return (
       ))}
       <button onClick={handleAddLanguages} className="btn">+ Add Language</button>
     </section>
+    <button onClick={handleSubmit}>Submit</button>
   </div>
 );
 
