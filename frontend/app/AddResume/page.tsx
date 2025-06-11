@@ -1,36 +1,35 @@
 "use client";
-// This file is part of the frontend application for adding resumes.
 import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 
 export default function AddResume() {
   const [file, setFile] = useState<File | null>(null);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white mb-10">
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white m-20">
         Add Resume
       </h1>
 
-      {/* Manual Add Card */}
-      <div className="flex flex-col sm:flex-row sm:justify-center items-center gap-6 mb-12">
+      {/* Card Container */}
+      <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-8">
+        {/* Manual Add Card */}
         <a
           href="#"
-          className="w-full sm:w-80 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all duration-300 text-center"
+          className="w-full sm:w-96 h-64 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all duration-300 flex flex-col justify-center items-center text-center"
         >
           <h5 className="mb-4 text-xl font-semibold text-gray-800 dark:text-white">
             Add Resume Manually
           </h5>
-          <IoMdAdd className="w-12 h-12 text-blue-500 mx-auto" />
+          <IoMdAdd className="w-12 h-12 text-blue-500" />
         </a>
-      </div>
 
-      {/* Upload Area */}
-      <div className="flex items-center justify-center px-2">
+        {/* Upload Area Card */}
         <label
           htmlFor="dropzone-file"
-          className="w-full max-w-3xl flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300"
+          className="w-full sm:w-96 h-64 p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-all duration-300 flex flex-col justify-center items-center text-center"
         >
-          <div className="flex flex-col items-center justify-center p-6 text-center">
+          <div className="flex flex-col items-center justify-center px-4 text-center">
             <svg
               className="w-10 h-10 mb-3 text-gray-500 dark:text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
@@ -50,10 +49,20 @@ export default function AddResume() {
               drop
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              PDF(Max. 1MB)
+              PDF (Max. 1MB)
             </p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" />
+          <input
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0];
+              if (selectedFile) {
+                setFile(selectedFile);
+              }
+            }}
+          />
         </label>
       </div>
     </div>
