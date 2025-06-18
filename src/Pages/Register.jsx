@@ -19,7 +19,7 @@ export default function Register() {
       if (!res.ok) throw new Error(data.error || "Registration failed");
 
       console.log("Registered!", data);
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Registration error:", error);
       alert(error.message || "Registration failed");

@@ -1,5 +1,5 @@
-const Resume = require("../Model/resumeModel");
-const User = require("../Model/userModel");
+import Resume from "../Model/resumeModel.js";
+import User from "../Model/userModel.js";
 
 // POST /api/user/:userId/resume
 export const createResume = async (req, res) => {

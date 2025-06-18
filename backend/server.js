@@ -1,11 +1,14 @@
-require("dotenv").config(); //load environment variables from .env file
-const express = require("express");
-const mongoose = require("mongoose");
-const userRoutes = require("./Routes/userRoutes");
-const resumeRoutes = require("./Routes/resumeRoutes");
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variables from .env file
+
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+
+import userRoutes from "./Routes/userRoutes.js";
+import resumeRoutes from "./Routes/resumeRoutes.js";
 
 const app = express();
-const cors = require("cors");
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173" })); // allow React app to access API

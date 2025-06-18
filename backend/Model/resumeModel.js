@@ -1,5 +1,5 @@
 // backend/models/Resume.js
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const educationSchema = new mongoose.Schema({
   degree: String,
@@ -15,11 +15,11 @@ const experienceSchema = new mongoose.Schema({
 });
 
 const resumeSchema = new mongoose.Schema({
-    user: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
-    },
+  },
   name: {
     type: String,
     required: true,
@@ -40,15 +40,11 @@ const resumeSchema = new mongoose.Schema({
 
   referral: [String],
 
-  certifications: [
-    String
-  ],
+  certifications: [String],
 
-  achievements: [
-    String
-  ],
+  achievements: [String],
 
   languages: [String],
 });
 
-module.exports = mongoose.model('Resume', resumeSchema);
+export default mongoose.model("Resume", resumeSchema);

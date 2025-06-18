@@ -77,28 +77,35 @@ export default function ResumeForm() {
   };
 
   const handleSubmit = async () => {
-    const resumeData = {
-      name,
-      email,
-      address,
-      objective,
-      skills,
-      education: educationFields,
-      experience: expForm,
-      referral,
-      certifications,
-      achievements,
-      languages,
-    };
+    try {
+      const resumeData = {
+        name,
+        email,
+        address,
+        objective,
+        skills,
+        education: educationFields,
+        experience: expForm,
+        referral,
+        certifications,
+        achievements,
+        languages,
+      };
 
-    await fetch(`http://localhost:4000/api/user/${userId}/create-resume`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(resumeData),
-    });
+      const res = await fetch(
+        `http://localhost:4000/api/user/${userId}/create-resume`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(resumeData),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
