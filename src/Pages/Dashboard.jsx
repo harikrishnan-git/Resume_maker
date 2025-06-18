@@ -2,26 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  useEffect(() => {
-    const fetchResumes = async () => {
-      try {
-        const res = await fetch("/api/user/:userId/resume");
-        const data = await res.json();
-        if (res.ok) {
-          setResumes(data);
-        } else {
-          console.error(data.error);
-        }
-      } catch (err) {
-        console.error("Failed to fetch resumes:", err);
-      }
-    };
-
-    fetchResumes();
-  }, []);
-
   const userId = localStorage.getItem("userId");
-  console.log(userId);
   const [username, setUserName] = useState("");
   const [resumes, setResumes] = useState([]);
   useEffect(() => {
@@ -39,8 +20,25 @@ export default function Dashboard() {
       }
     };
 
+    const fetchResumes = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:4000/api/user/${userId}/resume`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setResumes(data);
+        } else {
+          console.error(data.error);
+        }
+      } catch (err) {
+        console.error("Failed to fetch resumes:", err);
+      }
+    };
+
     if (userId) {
       fetchUserName();
+      fetchResumes();
     }
   }, [userId]);
   return (

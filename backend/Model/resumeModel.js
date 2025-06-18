@@ -17,7 +17,7 @@ const experienceSchema = new mongoose.Schema({
 const resumeSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "users",
     required: true,
   },
   name: {

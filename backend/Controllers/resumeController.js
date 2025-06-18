@@ -66,6 +66,8 @@ export const getResumes = async (req, res) => {
     res.status(200).json(resumes);
   } catch (error) {
     console.error("Error fetching resumes:", error);
-    res.status(500).json({ error: "Server error while fetching resumes" });
+    res
+      .status(500)
+      .json({ error: `Server error while fetching resumes: ${error.message}` });
   }
 };
