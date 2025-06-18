@@ -12,9 +12,11 @@ export const createResume = async (req, res) => {
     skills,
     education,
     experience,
+    projects,
     referral,
     certifications,
     achievements,
+    publications,
     languages,
   } = req.body;
 
@@ -34,9 +36,11 @@ export const createResume = async (req, res) => {
       skills,
       education,
       experience,
+      projects,
       referral,
       certifications,
       achievements,
+      publications,
       languages,
     });
 

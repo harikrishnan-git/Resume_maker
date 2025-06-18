@@ -1,5 +1,6 @@
 // backend/models/Resume.js
 import mongoose from "mongoose";
+import { title } from "process";
 
 const educationSchema = new mongoose.Schema({
   degree: String,
@@ -12,6 +13,12 @@ const experienceSchema = new mongoose.Schema({
   company: String,
   role: String,
   duration: String,
+});
+
+const projectSchema = new mongoose.Schema({
+  title: String,
+  tech: String,
+  description: String,
 });
 
 const resumeSchema = new mongoose.Schema({
@@ -38,11 +45,15 @@ const resumeSchema = new mongoose.Schema({
 
   experience: [experienceSchema],
 
+  projects: [projectSchema],
+
   referral: [String],
 
   certifications: [String],
 
   achievements: [String],
+
+  publications: [String],
 
   languages: [String],
 });

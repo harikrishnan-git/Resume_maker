@@ -128,6 +128,25 @@ export default function Dashboard() {
                 </div>
               )}
 
+              {resume.projects?.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Projects:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.projects?.map((exp, index) => (
+                      <li key={index}>
+                        <p className="font-semibold text-indigo-400">
+                          {exp.title}
+                        </p>
+                        <p className="text-sm text-white">{exp.tech}</p>
+                        <p className="text-sm text-gray-300">
+                          Description: {exp.description}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {resume.referral.length > 0 && (
                 <p className="mb-1">
                   <span className="text-gray-400">Referral:</span>{" "}
@@ -151,6 +170,17 @@ export default function Dashboard() {
                   <span className="text-gray-400">Achievements:</span>
                   <ul className="list-disc ml-5 text-white">
                     {resume.achievements?.map((ach, index) => (
+                      <li key={index}>{ach}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {resume.publications.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Publications:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.publications?.map((ach, index) => (
                       <li key={index}>{ach}</li>
                     ))}
                   </ul>

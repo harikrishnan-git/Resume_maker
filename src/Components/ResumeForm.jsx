@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ResumeForm() {
   const userId = localStorage.getItem("userId");
@@ -9,6 +10,13 @@ export default function ResumeForm() {
   const [educationFields, setEducationFields] = useState([
     { degree: "", institution: "", year: "", cgpa: "" },
   ]);
+  const [projects, setProjects] = useState([
+    {
+      title: "",
+      tech: "",
+      description: "",
+    },
+  ]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -18,6 +26,8 @@ export default function ResumeForm() {
   const [achievements, setAchievements] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [referral, setReferral] = useState([]);
+  const [publications, setPublications] = useState([]);
+  const navigate = useNavigate();
 
   const handleAddLanguages = () => setLanguages([...languages, ""]);
   const handleLanguagesChange = (index, event) => {
@@ -69,6 +79,15 @@ export default function ResumeForm() {
     setExpForm(updated);
   };
 
+  const handleAddProject = () =>
+    setProjects([...projects, { title: "", tech: "", description: "" }]);
+  const handleProjectChange = (index, event) => {
+    const { name, value } = event.target;
+    const updated = [...projects];
+    updated[index][name] = value;
+    setProjects(updated);
+  };
+
   const handleAddSkills = () => setSkills([...skills, ""]);
   const handleSkillsChange = (index, event) => {
     const updated = [...skills];
@@ -76,8 +95,36 @@ export default function ResumeForm() {
     setSkills(updated);
   };
 
+  const handleAddPublication = () => setPublications([...publications, ""]);
+  const handlePublicationChange = (index, event) => {
+    const updated = [...publications];
+    updated[index] = event.target.value;
+    setPublications(updated);
+  };
+
   const handleSubmit = async () => {
     try {
+      if (
+        educationFields.length === 1 &&
+        Object.values(educationFields[0]).every((v) => v === "")
+      ) {
+        setEducationFields([]);
+      }
+
+      if (
+        expForm.length === 1 &&
+        Object.values(expForm[0]).every((v) => v === "")
+      ) {
+        setExpForm([]);
+      }
+
+      if (
+        projects.length === 1 &&
+        Object.values(projects[0]).every((v) => v === "")
+      ) {
+        setProjects([]);
+      }
+
       const resumeData = {
         name,
         email,
@@ -86,9 +133,11 @@ export default function ResumeForm() {
         skills,
         education: educationFields,
         experience: expForm,
+        projects,
         referral,
         certifications,
         achievements,
+        publications,
         languages,
       };
 
@@ -103,6 +152,8 @@ export default function ResumeForm() {
           body: JSON.stringify(resumeData),
         }
       );
+
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +178,7 @@ export default function ResumeForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
           />
           <input
             type="email"
@@ -134,6 +186,7 @@ export default function ResumeForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
           />
           <textarea
             placeholder="Address"
@@ -156,6 +209,7 @@ export default function ResumeForm() {
           onChange={(e) => setObjective(e.target.value)}
           className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
           rows={4}
+          required
         />
       </section>
 
@@ -279,6 +333,49 @@ export default function ResumeForm() {
         </div>
       </section>
 
+      {/*Projects*/}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+          Projects
+        </h2>
+        <div className="space-y-6">
+          {projects.map((field, index) => (
+            <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <input
+                type="text"
+                name="title"
+                value={field.title}
+                onChange={(e) => handleProjectChange(index, e)}
+                placeholder="Project Title"
+                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <input
+                type="text"
+                name="tech"
+                value={field.tech}
+                onChange={(e) => handleProjectChange(index, e)}
+                placeholder="Technologies Used"
+                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <textarea
+                name="description"
+                value={field.description}
+                onChange={(e) => handleProjectChange(index, e)}
+                placeholder="Description"
+                className="h-32 w-full md:col-span-3 px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={handleAddProject}
+            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+          >
+            + Add Projects
+          </button>
+        </div>
+      </section>
+
       {/* Referral */}
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
@@ -350,6 +447,31 @@ export default function ResumeForm() {
             className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
           >
             + Add Achievement
+          </button>
+        </div>
+      </section>
+
+      {/*Publications*/}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+          Publications
+        </h2>
+        <div className="space-y-3">
+          {publications.map((ach, index) => (
+            <input
+              key={index}
+              type="text"
+              value={publications[index]}
+              placeholder="Publication"
+              onChange={(e) => handlePublicationChange(index, e)}
+              className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-700 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          ))}
+          <button
+            onClick={handleAddPublication}
+            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+          >
+            + Add Publication
           </button>
         </div>
       </section>
