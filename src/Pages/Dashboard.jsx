@@ -65,6 +65,7 @@ export default function Dashboard() {
               <h2 className="text-2xl font-bold text-white mb-2">
                 {resume.name}
               </h2>
+
               <p className="mb-1">
                 <span className="text-gray-400">Email:</span> {resume.email}
               </p>
@@ -76,9 +77,88 @@ export default function Dashboard() {
                 {resume.careerObjective}
               </p>
 
+              <div className="mb-3">
+                <span className="text-gray-400">Skills:</span>
+                <ul className="list-disc ml-5 text-white">
+                  {resume.skills?.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mb-3">
+                <span className="text-gray-400">Education:</span>
+                <ul className="list-disc ml-5 text-white">
+                  {resume.education?.map((edu, index) => (
+                    <li key={index}>
+                      <p>
+                        <span className="text-indigo-400 font-semibold">
+                          {edu.degree}
+                        </span>{" "}
+                        — {edu.institution}
+                      </p>
+                      <p className="text-sm text-gray-300">
+                        Year: {edu.year} | CGPA: {edu.cgpa}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {resume.experience?.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Experience:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.experience?.map((exp, index) => (
+                      <li key={index}>
+                        <p className="font-semibold text-indigo-400">
+                          {exp.role}
+                        </p>
+                        <p className="text-sm text-white">{exp.company}</p>
+                        <p className="text-sm text-gray-300">
+                          Duration: {exp.duration}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <p className="mb-1">
+                <span className="text-gray-400">Referral:</span>{" "}
+                {resume.referral}
+              </p>
+              <div className="mb-3">
+                <span className="text-gray-400">Certifications:</span>
+                <ul className="list-disc ml-5 text-white">
+                  {resume.certifications?.map((cert, index) => (
+                    <li key={index}>{cert}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mb-3">
+                <span className="text-gray-400">Achievements:</span>
+                <ul className="list-disc ml-5 text-white">
+                  {resume.achievements?.map((ach, index) => (
+                    <li key={index}>{ach}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mb-3">
+                <span className="text-gray-400">Languages:</span>
+                <ul className="list-disc ml-5 text-white">
+                  {resume.languages?.map((lang, index) => (
+                    <li key={index}>{lang}</li>
+                  ))}
+                </ul>
+              </div>
+
               <Link
                 to={`/resume/${resume._id}`}
-                className="inline-block px-4 py-2 mt-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
+                state={{ resume }} // ✅ Pass full resume if needed
+                className="inline-block px-4 py-2 mt-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
               >
                 View Resume
               </Link>
