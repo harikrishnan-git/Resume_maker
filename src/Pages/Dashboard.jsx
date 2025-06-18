@@ -56,11 +56,11 @@ export default function Dashboard() {
       </Link>
 
       {resumes.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
           {resumes.map((resume) => (
             <div
               key={resume._id}
-              className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition"
+              className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition w-full"
             >
               <h2 className="text-2xl font-bold text-white mb-2">
                 {resume.name}
@@ -77,33 +77,37 @@ export default function Dashboard() {
                 {resume.careerObjective}
               </p>
 
-              <div className="mb-3">
-                <span className="text-gray-400">Skills:</span>
-                <ul className="list-disc ml-5 text-white">
-                  {resume.skills?.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
-                </ul>
-              </div>
+              {resume.skills.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Skills:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.skills?.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-              <div className="mb-3">
-                <span className="text-gray-400">Education:</span>
-                <ul className="list-disc ml-5 text-white">
-                  {resume.education?.map((edu, index) => (
-                    <li key={index}>
-                      <p>
-                        <span className="text-indigo-400 font-semibold">
-                          {edu.degree}
-                        </span>{" "}
-                        — {edu.institution}
-                      </p>
-                      <p className="text-sm text-gray-300">
-                        Year: {edu.year} | CGPA: {edu.cgpa}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {resume.education.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Education:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.education?.map((edu, index) => (
+                      <li key={index}>
+                        <p>
+                          <span className="text-indigo-400 font-semibold">
+                            {edu.degree}
+                          </span>{" "}
+                          — {edu.institution}
+                        </p>
+                        <p className="text-sm text-gray-300">
+                          Year: {edu.year} | CGPA: {edu.cgpa}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {resume.experience?.length > 0 && (
                 <div className="mb-3">
@@ -124,36 +128,45 @@ export default function Dashboard() {
                 </div>
               )}
 
-              <p className="mb-1">
-                <span className="text-gray-400">Referral:</span>{" "}
-                {resume.referral}
-              </p>
-              <div className="mb-3">
-                <span className="text-gray-400">Certifications:</span>
-                <ul className="list-disc ml-5 text-white">
-                  {resume.certifications?.map((cert, index) => (
-                    <li key={index}>{cert}</li>
-                  ))}
-                </ul>
-              </div>
+              {resume.referral.length > 0 && (
+                <p className="mb-1">
+                  <span className="text-gray-400">Referral:</span>{" "}
+                  {resume.referral}
+                </p>
+              )}
 
-              <div className="mb-3">
-                <span className="text-gray-400">Achievements:</span>
-                <ul className="list-disc ml-5 text-white">
-                  {resume.achievements?.map((ach, index) => (
-                    <li key={index}>{ach}</li>
-                  ))}
-                </ul>
-              </div>
+              {resume.certifications.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Certifications:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.certifications?.map((cert, index) => (
+                      <li key={index}>{cert}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-              <div className="mb-3">
-                <span className="text-gray-400">Languages:</span>
-                <ul className="list-disc ml-5 text-white">
-                  {resume.languages?.map((lang, index) => (
-                    <li key={index}>{lang}</li>
-                  ))}
-                </ul>
-              </div>
+              {resume.achievements.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Achievements:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.achievements?.map((ach, index) => (
+                      <li key={index}>{ach}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {resume.languages.length > 0 && (
+                <div className="mb-3">
+                  <span className="text-gray-400">Languages:</span>
+                  <ul className="list-disc ml-5 text-white">
+                    {resume.languages?.map((lang, index) => (
+                      <li key={index}>{lang}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <Link
                 to={`/resume/${resume._id}`}
