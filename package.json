@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"script\" && \"dev\"",
-    "script": "nodemon backend/server.js",
+    "start": "concurrently \"npm run server\" \"npm run dev\"",
+    "server": "nodemon backend/server.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
