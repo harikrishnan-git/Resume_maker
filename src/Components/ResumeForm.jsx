@@ -27,6 +27,7 @@ export default function ResumeForm() {
   const [languages, setLanguages] = useState([]);
   const [referral, setReferral] = useState([]);
   const [publications, setPublications] = useState([]);
+  const [resumeType, setResumeType] = useState("");
   const navigate = useNavigate();
 
   const handleAddLanguages = () => setLanguages([...languages, ""]);
@@ -102,6 +103,10 @@ export default function ResumeForm() {
     setPublications(updated);
   };
 
+  const handleResumeTypeChange = (e) => {
+    setResumeType(e.target.value);
+  };
+
   const handleSubmit = async () => {
     try {
       if (
@@ -126,6 +131,7 @@ export default function ResumeForm() {
       }
 
       const resumeData = {
+        type: resumeType,
         name,
         email,
         address,
@@ -164,6 +170,22 @@ export default function ResumeForm() {
       <h1 className="text-4xl font-extrabold text-center mb-8 text-indigo-400">
         Resume Builder
       </h1>
+
+      {/* Resume Type Selection */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+          Resume Type
+        </h2>
+        <input
+          type="text"
+          id="type"
+          value={resumeType}
+          onChange={handleResumeTypeChange}
+          placeholder="Type of job (eg: Salesman)"
+          className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </section>
 
       {/* Personal Information */}
       <section>

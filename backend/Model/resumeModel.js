@@ -1,5 +1,6 @@
 // backend/models/Resume.js
 import mongoose from "mongoose";
+import { type } from "os";
 
 const educationSchema = new mongoose.Schema({
   degree: String,
@@ -21,6 +22,10 @@ const projectSchema = new mongoose.Schema({
 });
 
 const resumeSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    required: true,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",

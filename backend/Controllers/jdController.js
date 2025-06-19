@@ -25,6 +25,7 @@ export const optimizeResume = async (req, res) => {
     }
 
     // Here you would implement the logic to optimize the resumes based on the job description (jd)
+    //Ivide cheytha mathi
 
     res.status(200).json(resumes);
   } catch (error) {

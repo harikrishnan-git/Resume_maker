@@ -63,7 +63,7 @@ export default function Dashboard() {
               className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition w-full"
             >
               <h2 className="text-2xl font-bold text-white mb-2">
-                {resume.name}
+                {resume.name}({resume.type})
               </h2>
 
               <p className="mb-1">

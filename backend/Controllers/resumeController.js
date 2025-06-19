@@ -5,6 +5,7 @@ import User from "../Model/userModel.js";
 export const createResume = async (req, res) => {
   const { userId } = req.params;
   const {
+    type,
     name,
     email,
     address,
@@ -28,6 +29,7 @@ export const createResume = async (req, res) => {
     }
 
     const newResume = new Resume({
+      type,
       user: userId,
       name,
       email,
