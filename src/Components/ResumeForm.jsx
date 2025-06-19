@@ -153,7 +153,7 @@ export default function ResumeForm() {
         }
       );
 
-      navigate("/dashboard");
+      navigate("/about");
     } catch (error) {
       console.log(error);
     }
