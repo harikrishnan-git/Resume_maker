@@ -6,10 +6,12 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import CreateResume from "./Pages/CreateResume";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Homepage />} exact />
         <Route path="/register" element={<Register />}></Route>

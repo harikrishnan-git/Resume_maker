@@ -1,22 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import images from '../assets/images.png'
 
 export default function Homepage() {
   return (
-    <div className="bg-black text-white h-screen flex flex-col items-center justify-center px-4">
-      <h1 className="text-5xl font-bold mb-4 text-indigo-400 text-center">
-        Welcome to Resume Builder
-      </h1>
-      <p className="text-gray-400 text-lg mb-8 text-center max-w-xl">
-        Create, view, and manage your professional resumes easily in one place.
-      </p>
+    <div className="bg-black min-h-screen flex items-center justify-between px-12 py-10">
+      {/* Left Side: Text */}
+      <div className="max-w-xl -mt-50">
+        <h1 className="text-5xl font-extrabold text-white leading-tight mb-6">
+          Tailor Your Resume to <br />
+          Any Job — Instantly.
+        </h1>
+        <p className="text-lg text-gray-500 mb-8">
+          Stand out with tailored content that fits the role perfectly.
+        </p>
+      </div>
 
-      <Link
-        to="/dashboard" // or "/resumes" depending on your route
-        className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-lg rounded-md transition"
-      >
-        Show Resumes
-      </Link>
+      {/* Right Side: Image */}
+      <div className="max-w-xl ">
+        <img src={images} alt="Resume Preview" className="w-full object-contain" />
+      </div>
     </div>
   );
 }
