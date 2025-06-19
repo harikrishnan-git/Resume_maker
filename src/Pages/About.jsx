@@ -42,10 +42,10 @@ export default function Dashboard() {
     }
   }, [userId]);
   return (
-    <div className="bg-black text-gray-300 min-h-screen py-12 px-4 flex flex-col items-center">
-      <h1 className="text-4xl font-bold mb-4 text-white">Dashboard</h1>
+    <div className="bg-gradient-to-b from-black to-gray-900 text-gray-300 min-h-screen py-12 px-4 flex flex-col items-center">
+      <h1 className="text-4xl font-bold mb-4 text-white">About</h1>
       <p className="text-lg mb-6">
-        Hello, <span className="font-semibold text-indigo-400">{username}</span>
+        <span className="font-semibold text-indigo-400">{username}</span>
       </p>
 
       <Link

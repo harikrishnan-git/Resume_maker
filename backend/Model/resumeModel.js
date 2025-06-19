@@ -1,6 +1,5 @@
 // backend/models/Resume.js
 import mongoose from "mongoose";
-import { title } from "process";
 
 const educationSchema = new mongoose.Schema({
   degree: String,
