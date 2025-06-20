@@ -7,6 +7,7 @@ import Register from "./Pages/Register";
 import About from "./Pages/About";
 import Jd from "./Pages/Jd";
 import CreateResume from "./Pages/CreateResume";
+import ViewResume from "./Pages/ViewResume";
 import Navbar from "./Components/Navbar";
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
         <Route path="/resume" element={<CreateResume />}></Route>
         <Route path="/signup" element={<Register />}></Route>
         <Route path="/jd" element={<Jd />}></Route>
+        <Route path="/view-resume" element={<ViewResume />}></Route>
+        {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>
   );

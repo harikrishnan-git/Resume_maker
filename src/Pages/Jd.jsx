@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Jd() {
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const [jobDescription, setJobDescription] = useState("");
   const [resumeTypes, setResumeTypes] = useState([]);
@@ -46,10 +48,13 @@ export default function Jd() {
             }),
           }
         );
+        const data = await res.json();
         if (!res.ok) {
           throw new Error("Failed to submit job description");
         }
         alert("Job description submitted!");
+        localStorage.setItem("resume", JSON.stringify(data));
+        navigate("/view-resume");
       } catch (error) {
         alert("Error submitting job description. Please try again.");
         console.error("Error:", error);
