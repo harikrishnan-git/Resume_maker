@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname==="/";
+  const isHomePage = location.pathname === "/";
   const isLoginPage = location.pathname === "/login";
   const isRegister = location.pathname === "/register";
 
@@ -46,22 +46,17 @@ export default function Header() {
 
         {/* Center Links (Hidden on mobile) */}
         <nav className="hidden md:flex space-x-6 text-sm font-medium text-white">
-          <Link to="/services" className="hover:text-gray-400">
-            Services <span className="text-xs">▼</span>
-          </Link>
           <Link to="/" className="hover:text-gray-400">
             Home
           </Link>
-          <Link to="/about" className="hover:text-gray-400">
-            About
+          <Link to="/dashboard" className="hover:text-gray-400">
+            Dashboard
           </Link>
-          {!isHomePage && !isLoginPage && !isRegister &&(
-            <Link to="/jd" className="hover:text-gray-400">
+          <Link to="/jd" className="hover:text-gray-400">
             JD
           </Link>
-          )}
-          <Link to="/pricing" className="hover:text-gray-400">
-            Pricing
+          <Link to="/about" className="hover:text-gray-400">
+            About
           </Link>
         </nav>
 
