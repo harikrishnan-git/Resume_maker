@@ -50,9 +50,16 @@ export default function ResumeDetails() {
 
     const handleSave = async() => {
     try {
+        const normalizeArray = (arr) =>
+            arr?.map(item => typeof item === "string" ? item : item.name || item);
         const res = await axios.put(`http://localhost:4000/api/resume/${id}/update`,  {
         ...resume,
         type: resume.type || "General", // fallback type
+        skills: normalizeArray(resume.skills),
+        certifications: normalizeArray(resume.certifications),
+        achievements: normalizeArray(resume.achievements),
+        referral: normalizeArray(resume.referral),
+        languages: normalizeArray(resume.languages),
         });
         setResume(res.data);
         alert("saved details")
@@ -190,6 +197,7 @@ export default function ResumeDetails() {
         </h2>
         {resume.projects?.map((proj, index) => (
             <div key={index} className="mb-2">
+                <h2>Project {index + 1}</h2>
             <div className="grid grid-cols-2 gap-2">
                 <label>Title</label>
                 <input
@@ -252,6 +260,7 @@ export default function ResumeDetails() {
         </h2>
         {resume.experience?.map((exp, index) => (
             <div key={index} className="mb-2">
+                <h2>Experience {index + 1}</h2>
                 <div className="grid grid-cols-2 gap-2">
                 <label htmlFor="role">Role</label>
                 <input
@@ -311,10 +320,10 @@ export default function ResumeDetails() {
         <ul className="list-disc ml-5">
         {resume.skills?.map((skill, index) => (
            <div className="grid grid-cols-2 gap-2" key={index}>
-                <label htmlFor="htmlFor={`skill-${index}`}">{`Skill ${index + 1}`}</label>
+                <label htmlFor={`skill-${index}`}>{`Skill ${index + 1}`}</label>
                 <input
                     id={`skill-${index}`}
-                    value={skill}
+                    value={skill.name}
                     onChange={(e) => handleChange("skills", index, "name", e.target.value)}
                     className="border px-2 py-1"
                     readOnly={!isEditing.skills}
@@ -345,6 +354,7 @@ export default function ResumeDetails() {
             Certifications
              <button
                 onClick={() => handleAddField("certifications", {
+                    name:"",
                 _isNew: true
                 })}
                 className="text-green-600 underline"
@@ -357,10 +367,10 @@ export default function ResumeDetails() {
         </h2>
         {resume.certifications?.map((cert, index) => (
             <div className="grid grid-cols-2 gap-2" key={index}>
-            
+                <h2>Certificate {index + 1}</h2>
                 <input
-                    value={cert}
-                    onChange={(e) => handleChange("certifications", index, null, e.target.value)}
+                    value={cert.name}
+                    onChange={(e) => handleChange("certifications", index, "name", e.target.value)}
                     className="border px-2 py-1"
                     readOnly={!isEditing.certifications}
                 />
@@ -389,6 +399,7 @@ export default function ResumeDetails() {
             Achievements
              <button
                 onClick={() => handleAddField("achievements", {
+                    name:"",
                 _isNew: true
                 })}
                 className="text-green-600 underline"
@@ -401,10 +412,10 @@ export default function ResumeDetails() {
         </h2>
         {resume.achievements?.map((achievement, index) => (
             <div className="grid grid-cols-2 gap-2" key={index}>
-            
+                <h2>Achievement {index + 1}</h2>
                 <input
-                    value={achievement}
-                    onChange={(e) => handleChange("achievements", index, null, e.target.value)}
+                    value={achievement.name}
+                    onChange={(e) => handleChange("achievements", index, "name", e.target.value)}
                     className="border px-2 py-1"
                     readOnly={!isEditing.achievements}
                 />
@@ -432,6 +443,7 @@ export default function ResumeDetails() {
             Languages
              <button
                 onClick={() => handleAddField("languages", {
+                    name:"",
                 _isNew: true
                 })}
                 className="text-green-600 underline"
@@ -444,10 +456,10 @@ export default function ResumeDetails() {
         </h2>
         {resume.languages?.map((language, index) => (
             <div className="grid grid-cols-2 gap-2" key={index}>
-            
+                <h2>Language {index + 1}</h2>
                 <input
-                    value={language}
-                    onChange={(e) => handleChange("languages", index, null, e.target.value)}
+                    value={language.name}
+                    onChange={(e) => handleChange("languages", index, "name", e.target.value)}
                     className="border px-2 py-1"
                     readOnly={!isEditing.languages}
                 />
@@ -476,6 +488,7 @@ export default function ResumeDetails() {
             Referrals
              <button
                 onClick={() => handleAddField("referral", {
+                    name:"",
                 _isNew: true
                 })}
                 className="text-green-600 underline"
@@ -488,10 +501,10 @@ export default function ResumeDetails() {
         </h2>
         {resume.referral?.map((referral, index) => (
             <div className="grid grid-cols-2 gap-2" key={index}>
-            
+                <h2>Referral {index + 1}</h2>
                 <input
-                    value={referral}
-                    onChange={(e) => handleChange("referral", index, null, e.target.value)}
+                    value={referral.name}
+                    onChange={(e) => handleChange("referral", index, "name", e.target.value)}
                     className="border px-2 py-1"
                     readOnly={!isEditing.referral}
                 />
