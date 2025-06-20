@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname==="/";
+  const isLoginPage = location.pathname === "/login";
+  const isRegister = location.pathname === "/register";
 
   return (
     <header className="bg-black border-b border-gray-800">
@@ -50,9 +55,11 @@ export default function Header() {
           <Link to="/about" className="hover:text-gray-400">
             About
           </Link>
-          <Link to="/jd" className="hover:text-gray-400">
+          {!isHomePage && !isLoginPage && !isRegister &&(
+            <Link to="/jd" className="hover:text-gray-400">
             JD
           </Link>
+          )}
           <Link to="/pricing" className="hover:text-gray-400">
             Pricing
           </Link>
