@@ -25,6 +25,8 @@ function App() {
         <Route path="/resume/:id" element={<ResumeDetails/>}></Route>
         <Route path="/signup" element={<Register />}></Route>
         <Route path="/jd" element={<Jd />}></Route>
+        <Route path="/view-resume" element={<ViewResume />}></Route>
+        {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>
   );
