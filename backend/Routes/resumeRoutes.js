@@ -4,12 +4,21 @@ import {
   createResume,
   getResumes,
   getResumeById,
+  updateResume,
+  deleteResumeFieldItem,
+  deleteResume
 } from "../Controllers/resumeController.js";
 
 router.post("/user/:userId/create-resume", createResume);
 
 router.get("/user/:userId/resume", getResumes);
 
-router.get("/user/:userId/:resumeId", getResumeById);
+router.get("/resume/:resumeId", getResumeById);
+
+router.put("/resume/:resumeId/update", updateResume);
+
+router.delete("/resume/:resumeId/field/:fieldName/:index", deleteResumeFieldItem);
+
+router.delete("/resume/:resumeId", deleteResume);
 
 export default router;
