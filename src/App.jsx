@@ -9,6 +9,7 @@ import About from "./Pages/About";
 import Jd from "./Pages/Jd";
 import CreateResume from "./Pages/CreateResume";
 import ResumeDetails from "./Pages/ResumeDetails";
+import ViewResume from "./Pages/ViewResume";
 import Navbar from "./Components/Navbar";
 
 function App() {
@@ -19,10 +20,10 @@ function App() {
         <Route path="/" element={<Homepage />} exact />
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/resume" element={<CreateResume />}></Route>
-        <Route path="/resume/:id" element={<ResumeDetails/>}></Route>
+        <Route path="/resume/:id" element={<ResumeDetails />}></Route>
         <Route path="/signup" element={<Register />}></Route>
         <Route path="/jd" element={<Jd />}></Route>
         <Route path="/view-resume" element={<ViewResume />}></Route>

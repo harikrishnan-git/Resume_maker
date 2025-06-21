@@ -4,8 +4,6 @@ import userModel from "../Model/userModel.js";
 import Resume from "../Model/resumeModel.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-console.log("JDController is using key:", process.env.GEMINI_API_KEY);
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const optimizeResume = async (req, res) => {
@@ -75,7 +73,7 @@ export const optimizeResume = async (req, res) => {
         rawResponse: cleanText,
       });
     }
-    console.log("Resume returned: ", optimizedResume);
+
     return res.status(200).json({ optimizedResume });
   } catch (error) {
     console.error("Error optimizing resume:", error);

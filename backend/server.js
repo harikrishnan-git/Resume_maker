@@ -9,8 +9,6 @@ import userRoutes from "./Routes/userRoutes.js";
 import resumeRoutes from "./Routes/resumeRoutes.js";
 import jdRoutes from "./Routes/jdRoutes.js";
 
-console.log("GEMINI API KEY:", process.env.GEMINI_API_KEY);
-
 const app = express();
 
 app.use(express.json());
