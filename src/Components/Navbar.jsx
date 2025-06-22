@@ -5,9 +5,6 @@ import { useLocation } from "react-router-dom";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const isLoginPage = location.pathname === "/login";
-  const isRegister = location.pathname === "/register";
 
   return (
     <header className="bg-black border-b border-gray-800">

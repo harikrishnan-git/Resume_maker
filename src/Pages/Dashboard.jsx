@@ -52,7 +52,7 @@ export default function Dashboard() {
         to="/resume"
         className="mb-8 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-bold"
       >
-        + Create New Resume
+        + Create New Profile
       </Link>
 
       {resumes.length > 0 ? (
