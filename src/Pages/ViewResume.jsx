@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Plain from "../Components/templates/Plain";
+import NewTemp from "../Components/templates/NewTemp";
+import Sb2nov from "../Components/templates/Sb2nov";
 import { useNavigate } from "react-router-dom";
 
 export default function viewResume() {
@@ -17,7 +19,7 @@ export default function viewResume() {
 
   return (
     <div>
-      <Plain />
+      <Sb2nov />
     </div>
   );
 }

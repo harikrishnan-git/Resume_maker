@@ -52,7 +52,6 @@ export default function Jd() {
         if (!res.ok) {
           throw new Error("Failed to submit job description");
         }
-        alert("Job description submitted!");
         localStorage.setItem("resume", JSON.stringify(data));
         navigate("/view-resume");
       } catch (error) {

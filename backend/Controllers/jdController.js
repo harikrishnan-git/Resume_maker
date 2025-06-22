@@ -29,8 +29,6 @@ export const optimizeResume = async (req, res) => {
         .json({ error: "No resumes found for this user of given type" });
     }
 
-    // Here you would implement the logic to optimize the resumes based on the job description (jd)
-
     // combining all the resumes
     const allResumes = resumes.map((r) => r.toObject());
     const combinedResumeText = allResumes
@@ -38,15 +36,23 @@ export const optimizeResume = async (req, res) => {
       .join("\n\n");
 
     //prompt
-    const prompt = `you are a resume expert.Given multiple resume versions for a user and a job description(JD), generate a single optimized resume that best matches the job.
-    
-    -Extract and merge the strongest and most revelent skills ,experience and education sections from all resumes.
-    -Align the resume with the JD.
-    -Be conscise,focused and modern in formating.
-    - Return only valid JSON with fields:
-    name, email, phone, summary, skills, experience, education, certifications, projects
+    const prompt = `You are a resume optimization expert. You are given:
 
-    No markdown, no explanations required.
+1. A job description (JD)
+2. Multiple resume versions for a single user (combinedResumeText)
+
+Your task is to generate a **single optimized resume** in **valid JSON format** that best matches the JD.
+
+### Instructions:
+- Extract only the **most relevant and strongest**:
+  - Skills that match or are closely related to the JD
+  - Experiences that demonstrate qualifications for the JD
+  - Education that supports the JD requirements
+- You must **filter out unrelated or redundant content**.
+- Prioritize modern, action-driven, and concise descriptions.
+- Summarize with a clear, focused "summary" field tailored to the JD.
+
+    No markdown, no explanations required. Return only as JSON object and resume should be atmost 1 page long.
 
     ${jd}
     ${combinedResumeText}`;
