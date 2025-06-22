@@ -1,6 +1,6 @@
 import React from "react";
 
-const ResumeTemplate = () => {
+const NewTemp = () => {
   const resume = JSON.parse(localStorage.getItem("resume"));
   if (!resume)
     return <div className="text-center text-gray-500">Loading...</div>;
@@ -21,131 +21,160 @@ const ResumeTemplate = () => {
   } = resume["optimizedResume"];
 
   return (
-    <div className="bg-gradient-to-tr from-blue-50 to-indigo-100 min-h-screen py-10 px-4 font-sans text-gray-800">
-      <div className="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8">
+    <main className="bg-gray-100 text-gray-800 font-sans">
+      <div className="max-w-4xl mx-auto my-8 bg-white p-10 rounded-lg shadow-lg">
         {/* Header */}
-        <header className="text-center border-b pb-6">
-          <h1 className="text-4xl font-extrabold text-indigo-800">{name}</h1>
-          <p className="text-lg text-gray-600 mt-2">{email}</p>
-          {address && <p className="text-sm text-gray-500">{address}</p>}
+        <header className="border-b-2 pb-4 mb-6">
+          <h1 className="text-4xl font-bold">{name}</h1>
+          <p className="text-lg text-gray-600">
+            {email} {address && `| ${address}`}
+          </p>
         </header>
 
-        {/* Section Reusable Component */}
+        {/* Summary */}
         {summary && (
-          <Section title="Career Objective">
-            <p className="text-justify">{summary}</p>
-          </Section>
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Summary
+            </h2>
+            <p>{summary}</p>
+          </section>
         )}
 
+        {/* Skills */}
         {skills.length > 0 && (
-          <Section title="Skills">
-            <ul className="list-disc list-inside grid grid-cols-2 gap-x-6 gap-y-1">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">Skills</h2>
+            <ul className="flex flex-wrap gap-2">
               {skills.map((skill, i) => (
-                <li key={i}>{skill}</li>
+                <li key={i} className="bg-gray-200 text-sm px-3 py-1 rounded">
+                  {skill}
+                </li>
               ))}
             </ul>
-          </Section>
+          </section>
         )}
 
+        {/* Education */}
         {education.length > 0 && (
-          <Section title="Education">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Education
+            </h2>
             {education.map((edu, i) => (
-              <div key={i} className="mb-3">
-                <h3 className="text-lg font-semibold text-indigo-700">
-                  {edu.degree}
-                </h3>
-                <p className="text-sm text-gray-700">
-                  {edu.institution}, {edu.year}
+              <div key={i} className="mb-4">
+                <h3 className="font-semibold">{edu.degree}</h3>
+                <p className="text-sm text-gray-600">
+                  {edu.institution} | {edu.year}
                 </p>
-                <p className="text-sm text-gray-600">CGPA: {edu.cgpa}</p>
+                {edu.cgpa && <p className="text-sm">CGPA: {edu.cgpa}</p>}
               </div>
             ))}
-          </Section>
+          </section>
         )}
 
+        {/* Experience */}
         {experience.length > 0 && (
-          <Section title="Experience">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Experience
+            </h2>
             {experience.map((exp, i) => (
-              <div key={i} className="mb-3">
-                <h3 className="text-lg font-semibold text-indigo-700">
-                  {exp.role}
-                </h3>
-                <p className="text-sm text-gray-700">
+              <div key={i} className="mb-4">
+                <h3 className="font-semibold">{exp.role}</h3>
+                <p className="text-sm text-gray-600">
                   {exp.company} | {exp.duration}
                 </p>
+                {exp.description && (
+                  <ul className="list-disc list-inside mt-1 text-sm">
+                    {exp.description.map((line, j) => (
+                      <li key={j}>{line}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))}
-          </Section>
+          </section>
         )}
 
+        {/* Projects */}
         {projects.length > 0 && (
-          <Section title="Projects">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Projects
+            </h2>
             {projects.map((project, i) => (
               <div key={i} className="mb-4">
-                <h3 className="text-lg font-semibold text-indigo-700">
-                  {project.title}
-                </h3>
-                <p className="text-sm italic text-gray-600">
-                  Tech Used: {project.tech}
-                </p>
+                <h3 className="font-semibold">{project.title}</h3>
+                {project.tech && (
+                  <p className="italic text-sm text-gray-600">
+                    Tech Used: {project.tech}
+                  </p>
+                )}
                 <p className="text-sm">{project.description}</p>
               </div>
             ))}
-          </Section>
+          </section>
         )}
 
+        {/* Certifications */}
         {certifications.length > 0 && (
-          <Section title="Certifications">
-            <ul className="list-disc list-inside space-y-1">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Certifications
+            </h2>
+            <ul className="list-disc list-inside">
               {certifications.map((cert, i) => (
                 <li key={i}>{cert}</li>
               ))}
             </ul>
-          </Section>
+          </section>
         )}
 
+        {/* Achievements */}
         {achievements.length > 0 && (
-          <Section title="Achievements">
-            <ul className="list-disc list-inside space-y-1">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Achievements
+            </h2>
+            <ul className="list-disc list-inside">
               {achievements.map((achieve, i) => (
                 <li key={i}>{achieve}</li>
               ))}
             </ul>
-          </Section>
+          </section>
         )}
 
+        {/* Publications */}
         {publications.length > 0 && (
-          <Section title="Publications">
-            <ul className="list-disc list-inside space-y-1">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Publications
+            </h2>
+            <ul className="list-disc list-inside">
               {publications.map((pub, i) => (
                 <li key={i}>{pub}</li>
               ))}
             </ul>
-          </Section>
+          </section>
         )}
 
+        {/* Languages */}
         {languages.length > 0 && (
-          <Section title="Languages">
-            <ul className="list-disc list-inside space-y-1">
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Languages
+            </h2>
+            <ul className="list-disc list-inside">
               {languages.map((lang, i) => (
                 <li key={i}>{lang}</li>
               ))}
             </ul>
-          </Section>
+          </section>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
-// 🔁 Reusable Section Component
-const Section = ({ title, children }) => (
-  <section className="p-5 bg-indigo-50 rounded-xl shadow-inner border border-indigo-100">
-    <h2 className="text-xl font-bold text-indigo-800 mb-3 border-b border-indigo-300 pb-1">
-      {title}
-    </h2>
-    {children}
-  </section>
-);
-
-export default ResumeTemplate;
+export default NewTemp;

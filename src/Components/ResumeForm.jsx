@@ -174,7 +174,7 @@ export default function ResumeForm() {
       {/* Resume Type Selection */}
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-          Resume Type
+          Resume Type<span className="text-red-500">*</span>
         </h2>
         <input
           type="text"
@@ -190,7 +190,7 @@ export default function ResumeForm() {
       {/* Personal Information */}
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-          Personal Information
+          Personal Information<span className="text-red-500">*</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input
@@ -223,7 +223,7 @@ export default function ResumeForm() {
       {/* Career Objective */}
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
-          Career Objective
+          Career Objective<span className="text-red-500">*</span>
         </h2>
         <textarea
           placeholder="Your career objective..."

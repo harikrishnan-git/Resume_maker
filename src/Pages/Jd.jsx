@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 export default function Jd() {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+  const [loading, setLoading] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState("Sb2nov");
   const [jobDescription, setJobDescription] = useState("");
   const [resumeTypes, setResumeTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
 
   useEffect(() => {
     const getResumeTypes = async () => {
+      setLoading(true);
       try {
         const res = await fetch(
           `http://localhost:4000/api/user/${userId}/resume`,
@@ -25,6 +28,8 @@ export default function Jd() {
         setResumeTypes(updated);
       } catch (error) {
         console.error("Error fetching resume types:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,6 +39,7 @@ export default function Jd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (jobDescription.trim() && selectedType !== "") {
+      setLoading(true);
       try {
         const res = await fetch(
           `http://localhost:4000/api/user/${userId}/optimize-resume`,
@@ -53,10 +59,16 @@ export default function Jd() {
           throw new Error("Failed to submit job description");
         }
         localStorage.setItem("resume", JSON.stringify(data));
+        localStorage.setItem(
+          "resumeTemplate",
+          JSON.stringify(selectedTemplate)
+        );
         navigate("/view-resume");
       } catch (error) {
         alert("Error submitting job description. Please try again.");
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     } else {
       alert("Please enter a job description and select resume type.");
@@ -64,64 +76,103 @@ export default function Jd() {
   };
   return (
     <div className="bg-gradient-to-b from-black to-gray-900 text-gray-200 min-h-screen py-16 px-6 flex flex-col items-center">
-      <h1 className="text-5xl font-extrabold text-center mb-4">
-        Job Description
-      </h1>
-      <p className="text-lg text-gray-400 text-center max-w-2xl mb-10">
-        Tailor your resume to match the job description perfectly. Paste the job
-        description and select the resume type below.
-      </p>
+      {loading ? (
+        <div className="flex flex-col items-center justify-center h-screen">
+          {/* Spinner */}
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin shadow-md"></div>
+            <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+          </div>
 
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className="w-full max-w-3xl space-y-6 bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700"
-      >
-        <div className="flex flex-col">
-          <label
-            htmlFor="jobDescription"
-            className="text-gray-300 mb-2 font-medium"
-          >
-            Job Description <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="jobDescription"
-            className="w-full h-64 p-5 border border-gray-600 rounded-xl bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            placeholder="Paste the job description here..."
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            required
-            style={{ fontFamily: "monospace", fontSize: "16px" }}
-          />
+          {/* Text */}
+          <h2 className="text-lg font-semibold text-blue-500 mt-6">
+            Loading...
+          </h2>
         </div>
+      ) : (
+        <div>
+          <h1 className="text-5xl font-extrabold text-center mb-4">
+            Job Description
+          </h1>
+          <p className="text-lg text-gray-400 text-center max-w-2xl mb-10">
+            Tailor your resume to match the job description perfectly. Paste the
+            job description and select the resume type below.
+          </p>
 
-        <div className="flex flex-col">
-          <label htmlFor="type" className="text-gray-300 mb-2 font-medium">
-            Resume Type <span className="text-red-500">*</span>
-          </label>
-          <select
-            id="type"
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            required
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="w-full max-w-3xl space-y-6 bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700"
           >
-            {resumeTypes.map((type, index) => (
-              <option key={index} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="jobDescription"
+                className="text-gray-300 mb-2 font-medium"
+              >
+                Job Description <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="jobDescription"
+                className="w-full h-64 p-5 border border-gray-600 rounded-xl bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                placeholder="Paste the job description here..."
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+                required
+                autoFocus
+                style={{ fontFamily: "monospace", fontSize: "16px" }}
+              />
+            </div>
 
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Submit
-          </button>
+            <div className="flex flex-col">
+              <label htmlFor="type" className="text-gray-300 mb-2 font-medium">
+                Resume Type <span className="text-red-500">*</span>
+              </label>
+              <select
+                id="type"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                required
+              >
+                {resumeTypes.map((type, index) => (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Resume Template */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="template"
+                className="text-gray-300 mb-2 font-medium"
+              >
+                Resume Template <span className="text-red-500">*</span>
+              </label>
+              <select
+                id="template"
+                value={selectedTemplate}
+                onChange={(e) => setSelectedTemplate(e.target.value)}
+                className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                required
+              >
+                <option value="sb2nov">SB2Nov</option>
+                <option value="plain">Plain</option>
+              </select>
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      )}
     </div>
   );
 }

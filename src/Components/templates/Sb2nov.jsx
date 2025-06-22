@@ -80,8 +80,8 @@ const Resume = () => {
             <Entry
               key={i}
               title={proj.title}
-              subtitle={proj.link}
-              highlights={proj.highlights}
+              subtitle={proj.tech}
+              description={proj.description}
             />
           ))}
         </Section>
@@ -129,7 +129,7 @@ const Section = ({ title, children }) => (
   </section>
 );
 
-const Entry = ({ title, subtitle, location, duration, highlights }) => (
+const Entry = ({ title, subtitle, location, duration, description }) => (
   <div className="mb-4">
     <div className="flex justify-between flex-wrap text-sm text-gray-700">
       <span className="font-semibold">{title}</span>
@@ -137,12 +137,8 @@ const Entry = ({ title, subtitle, location, duration, highlights }) => (
     </div>
     {subtitle && <p className="italic text-sm text-gray-600">{subtitle}</p>}
     {location && <p className="text-sm text-gray-500">{location}</p>}
-    {highlights && (
-      <ul className="list-disc list-inside mt-1 text-sm">
-        {highlights.map((point, i) => (
-          <li key={i}>{point}</li>
-        ))}
-      </ul>
+    {description && (
+      <p className="list-disc list-inside mt-1 text-sm">{description}</p>
     )}
   </div>
 );
