@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import Plain from "../Components/templates/Plain";
 import Sb2nov from "../Components/templates/Sb2nov";
+import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
+import { template } from "handlebars";
 
 export default function viewResume() {
   // Get resume from local storage
@@ -11,6 +13,7 @@ export default function viewResume() {
   const templates = {
     plain: <Plain />,
     sb2nov: <Sb2nov />,
+    template3: <Template3 />,
   };
   const selectedTemplate = templates[resumeTemplate] || <Sb2nov />;
 

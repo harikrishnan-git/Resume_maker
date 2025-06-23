@@ -18,6 +18,7 @@ const NewTemp = () => {
     achievements = [],
     publications = [],
     languages = [],
+    referral = [],
   } = resume["optimizedResume"];
 
   return (
@@ -168,6 +169,19 @@ const NewTemp = () => {
             <ul className="list-disc list-inside">
               {languages.map((lang, i) => (
                 <li key={i}>{lang}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {referral.length > 0 && (
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              Referrals
+            </h2>
+            <ul className="list-disc list-inside">
+              {referral.map((ref, i) => (
+                <li key={i}>{ref}</li>
               ))}
             </ul>
           </section>

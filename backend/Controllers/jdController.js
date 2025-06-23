@@ -6,6 +6,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+
 export const optimizeResume = async (req, res) => {
   const { userId } = req.params;
   const { jd, type } = req.body;
@@ -80,6 +81,7 @@ Your task is to generate a **single optimized resume** in **valid JSON format** 
         rawResponse: cleanText,
       });
     }
+
 
     return res.status(200).json({ optimizedResume });
   } catch (error) {

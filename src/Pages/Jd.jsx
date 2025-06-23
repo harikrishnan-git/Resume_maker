@@ -55,6 +55,7 @@ export default function Jd() {
           }
         );
         const data = await res.json();
+
         if (!res.ok) {
           throw new Error("Failed to submit job description");
         }
@@ -158,6 +159,7 @@ export default function Jd() {
               >
                 <option value="sb2nov">SB2Nov</option>
                 <option value="plain">Plain</option>
+                <option value="template3">Template3</option>
               </select>
             </div>
 
