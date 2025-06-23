@@ -1,21 +1,28 @@
 const Resume = () => {
   const resume = JSON.parse(localStorage.getItem("resume"));
+  console.log("Resume data:", resume);
   if (!resume)
     return <div className="text-center text-gray-500">Loading...</div>;
 
   const {
     name,
-    location,
+    address,
+    summary,
     email,
     phone,
     website,
     linkedin,
     github,
+    skills = [],
     education = [],
     experience = [],
     publications = [],
     projects = [],
-    technologies = [],
+    certifications = [],
+    achievements = [],
+    referral = [],
+    location,
+    languages = [],
   } = resume["optimizedResume"];
 
   return (
@@ -27,6 +34,9 @@ const Resume = () => {
           <span>{location}</span>
           <a href={`mailto:${email}`} className="hover:underline">
             {email || null}
+          </a>
+          <a href={`tel:${address}`} className="hover:underline">
+            {address || null}
           </a>
           <a href={`tel:${phone}`} className="hover:underline">
             {phone || null}
@@ -44,6 +54,24 @@ const Resume = () => {
       </header>
 
       {/* Section Component */}
+      {summary && (
+        <Section title="Career Objective">
+          <p>{summary}</p>
+        </Section>
+      )}
+
+      {skills.length > 0 && (
+        <Section title="Skills">
+          <ul className="list-disc list-inside">
+            {skills.map((skill, i) => (
+              <li key={i} className="text-sm text-gray-700">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       {education.length > 0 && (
         <Section title="Education">
           {education.map((edu, i) => (
@@ -51,9 +79,7 @@ const Resume = () => {
               key={i}
               title={edu.institution}
               subtitle={edu.degree}
-              location={edu.location}
-              duration={edu.duration}
-              highlights={edu.highlights}
+              description={`Year: ${edu.year}, CGPA: ${edu.cgpa}`}
             />
           ))}
         </Section>
@@ -68,7 +94,6 @@ const Resume = () => {
               subtitle={exp.company}
               location={exp.location}
               duration={exp.duration}
-              highlights={exp.highlights}
             />
           ))}
         </Section>
@@ -106,7 +131,55 @@ const Resume = () => {
         </Section>
       )}
 
-      {technologies.length > 0 && (
+      {achievements.length > 0 && (
+        <Section title="Achievements">
+          <ul className="list-disc list-inside">
+            {achievements.map((ach, i) => (
+              <li key={i} className="text-sm text-gray-700">
+                {ach}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {certifications.length > 0 && (
+        <Section title="Certifications">
+          <ul className="list-disc list-inside">
+            {certifications.map((cert, i) => (
+              <li key={i} className="text-sm text-gray-700">
+                {cert}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {languages.length > 0 && (
+        <Section title="Languages">
+          <ul className="list-disc list-inside">
+            {languages.map((lang, i) => (
+              <li key={i} className="text-sm text-gray-700">
+                {lang}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {referral?.length > 0 && (
+        <Section title="Referrals">
+          <ul className="list-disc list-inside">
+            {referral.map((ref, i) => (
+              <li key={i} className="text-sm text-gray-700">
+                {ref}
+              </li>
+            ))}
+          </ul>
+        </Section> 
+      )}
+
+      {/*{technologies.length > 0 && (
         <Section title="Technologies">
           <p>
             <strong>Languages:</strong> {technologies.languages.join(", ")}
@@ -115,7 +188,7 @@ const Resume = () => {
             <strong>Tools & Frameworks:</strong> {technologies.tools.join(", ")}
           </p>
         </Section>
-      )}
+      )}*/}
     </div>
   );
 };

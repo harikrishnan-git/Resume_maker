@@ -48,6 +48,7 @@ Your task is to generate a **single optimized resume** in **valid JSON format** 
   - Skills that match or are closely related to the JD
   - Experiences that demonstrate qualifications for the JD
   - Education that supports the JD requirements
+  - Always include referrals
 - You must **filter out unrelated or redundant content**.
 - Prioritize modern, action-driven, and concise descriptions.
 - Summarize with a clear, focused "summary" field tailored to the JD.

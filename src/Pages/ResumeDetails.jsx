@@ -25,7 +25,12 @@ export default function ResumeDetails() {
         const fetchResume=async()=>{
             try{
                 const response = await axios.get(`http://localhost:4000/api/resume/${id}`)
-                setResume(response.data);
+                const data = response.data;
+
+                data.skills = data.skills?.map(s => typeof s === "string" ? { name: s } : s);
+                data.languages = data.languages?.map(l => typeof l === "string" ? { name: l } : l);
+
+                setResume(data);
             }
             catch{
                 setError(err.response?.data?.error || "Failed to fetch resume");
