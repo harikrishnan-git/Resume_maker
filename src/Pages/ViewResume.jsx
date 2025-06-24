@@ -17,6 +17,8 @@ export default function viewResume() {
   };
   const selectedTemplate = templates[resumeTemplate] || <Sb2nov />;
 
+  // Function to download the resume as PDF
+  const downloadResume = async () => {};
   // Check if JD is provided, if not redirect to JD page
   useEffect(() => {
     if (!resume) {
@@ -25,5 +27,17 @@ export default function viewResume() {
     }
   }, []);
 
-  return <div>{selectedTemplate}</div>;
+  return (
+    <div className="container mx-auto p-4">
+      <div>{selectedTemplate}</div>
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={downloadResume}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Download Resume
+        </button>
+      </div>
+    </div>
+  );
 }
