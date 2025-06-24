@@ -6,7 +6,8 @@ import {
   getResumeById,
   updateResume,
   deleteResumeFieldItem,
-  deleteResume
+  deleteResume,
+  generatePDF,
 } from "../Controllers/resumeController.js";
 
 router.post("/user/:userId/create-resume", createResume);
@@ -17,7 +18,12 @@ router.get("/resume/:resumeId", getResumeById);
 
 router.put("/resume/:resumeId/update", updateResume);
 
-router.delete("/resume/:resumeId/field/:fieldName/:index", deleteResumeFieldItem);
+router.post("/generate-pdf", generatePDF);
+
+router.delete(
+  "/resume/:resumeId/field/:fieldName/:index",
+  deleteResumeFieldItem
+);
 
 router.delete("/resume/:resumeId", deleteResume);
 

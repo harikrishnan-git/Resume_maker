@@ -1,6 +1,5 @@
 const Resume = () => {
   const resume = JSON.parse(localStorage.getItem("resume"));
-  console.log("Resume data:", resume);
   if (!resume)
     return <div className="text-center text-gray-500">Loading...</div>;
 
@@ -176,7 +175,7 @@ const Resume = () => {
               </li>
             ))}
           </ul>
-        </Section> 
+        </Section>
       )}
 
       {/*{technologies.length > 0 && (

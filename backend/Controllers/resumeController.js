@@ -1,5 +1,7 @@
 import Resume from "../Model/resumeModel.js";
 import User from "../Model/userModel.js";
+import bodyParser from "body-parser";
+import { chromium } from "playwright";
 
 // POST /api/user/:userId/resume
 export const createResume = async (req, res) => {
@@ -97,6 +99,49 @@ export const getResumeById = async (req, res) => {
   }
 };
 
+export const generatePDF = async (req, res) => {
+  const { html } = req.body;
+
+  try {
+    const browser = await chromium.launch();
+    const page = await browser.newPage();
+
+    await page.setContent(
+      `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        </head>
+        <body>
+          ${html}
+        </body>
+      </html>
+    `,
+      { waitUntil: "networkidle" }
+    );
+
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+    });
+
+    await browser.close();
+
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=resume.pdf",
+    });
+
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error("PDF Generation Error:", error);
+    res.status(500).send("PDF generation failed");
+  }
+};
+
 export const updateResume = async (req, res) => {
   const { resumeId } = req.params;
   const {
@@ -137,7 +182,7 @@ export const updateResume = async (req, res) => {
     resume.publications = publications || resume.publications;
     resume.languages = languages || resume.languages;
 
-    console.log('Updating resume with:', req.body);
+    console.log("Updating resume with:", req.body);
     const updatedResume = await resume.save();
     res.status(200).json(updatedResume);
   } catch (error) {
@@ -155,13 +200,17 @@ export const deleteResumeFieldItem = async (req, res) => {
     }
 
     if (!Array.isArray(resume[fieldName])) {
-      return res.status(400).json({ error: `Field '${fieldName}' is not an array or doesn't exist` });
+      return res.status(400).json({
+        error: `Field '${fieldName}' is not an array or doesn't exist`,
+      });
     }
 
     // Convert index to a number and check bounds
     const idx = parseInt(index);
     if (isNaN(idx) || idx < 0 || idx >= resume[fieldName].length) {
-      return res.status(400).json({ error: `Invalid index for '${fieldName}'` });
+      return res
+        .status(400)
+        .json({ error: `Invalid index for '${fieldName}'` });
     }
 
     // Remove the item at the index
