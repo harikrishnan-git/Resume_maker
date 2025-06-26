@@ -17,6 +17,7 @@ app.use(cors({ origin: "http://localhost:5173" })); // allow React app to access
 
 app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
+<<<<<<< HEAD
 app.use("/api/user", jdRoutes);
 app.use("/api",historyRoute);
 
