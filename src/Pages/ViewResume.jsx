@@ -5,6 +5,7 @@ import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { set } from "mongoose";
+import LackingSkills from "../Components/LackingSkills";
 
 export default function viewResume() {
   // Get resume from local storage
@@ -55,12 +56,10 @@ export default function viewResume() {
   }, []);
 
   return (
-    <div className="bg-black min-h-screen">
-    <div className="container mx-auto p-4 bg-black">
-      <div className="shadow-lg" ref={pdfRef}>
+    <div className="flex gap-10 bg-black min-h-screen w-screen text-white justify-center ">
+      <div className="px-10 py-10 bg-black shadow-lg" ref={pdfRef}>
         {selectedTemplate}
-      </div>
-      <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
         <button
           onClick={downloadResume}
           className="bg-white text-black font-bold px-3 py-2 rounded w-xl hover:bg-gray-200 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -68,7 +67,11 @@ export default function viewResume() {
           {loading? "Loading..." : "Download Resume"}
         </button>
       </div>
+      </div>
+    <div className="py-10 px-10 w-1/2">
+       <LackingSkills/>
     </div>
     </div>
+   
   );
 }

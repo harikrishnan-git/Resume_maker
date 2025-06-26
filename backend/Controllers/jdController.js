@@ -89,3 +89,38 @@ Your task is to generate a **single optimized resume** in **valid JSON format** 
     res.status(500).json({ error: "Server error while optimizing resume" });
   }
 };
+
+export const lackingSkills = async (req, res) => {
+  const { jd, resumeSkills } = req.body;
+
+  try {
+    const prompt = `
+You are an expert in resume optimization. Given the following job description and the resume's existing skills, identify the skills that are mentioned in the job description but are NOT present in the resume.
+Omit soft skills and focus on technical and hard skills.
+
+### Job Description:
+${jd}
+
+### Resume Skills:
+${resumeSkills.join(", ")}
+
+### Output format:
+Return only the missing skills as a comma-separated list.
+`;
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const result = await model.generateContent(prompt);
+    const rawText = result.response.text().trim();
+
+    const cleanText = rawText
+      .replace(/^```json\s*/i, "")
+      .replace(/^```\s*/i, "")
+      .replace(/```$/, "")
+      .trim();
+
+    return res.status(200).json({ lackingSkills: cleanText });
+  } catch (error) {
+    console.error("Error analyzing lacking skills:", error);
+    res.status(500).json({ error: "Server error while analyzing skills" });
+  }
+};

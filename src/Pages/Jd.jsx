@@ -9,6 +9,7 @@ export default function Jd() {
   const [jobDescription, setJobDescription] = useState("");
   const [resumeTypes, setResumeTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
+  const [lackingSkills, setLackingSkills] = useState("");
 
   useEffect(() => {
     const getResumeTypes = async () => {
@@ -64,6 +65,40 @@ export default function Jd() {
           "resumeTemplate",
           JSON.stringify(selectedTemplate)
         );
+
+        //fetch lacking skills
+        const resumeSkills = data.optimizedResume.skills || [];
+        console.log("Resume skills:", resumeSkills);
+        try {
+            const skillRes = await fetch(`http://localhost:4000/api/user/${userId}/lacking-skills`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                jd: jobDescription,
+                resumeSkills,
+              }),
+            });
+
+            const skillData = await skillRes.json();
+            if (skillRes.ok) {
+              localStorage.setItem("lackingSkills", skillData.lackingSkills);
+              setLackingSkills(skillData.lackingSkills);
+              const cleanLackingSkillsArray = skillData.lackingSkills
+              .split(",")
+              .map(skill => skill.trim())
+              .filter(skill => skill.length > 0);
+              localStorage.setItem("OptimisationPercentage",resumeSkills.length? (resumeSkills.length/(resumeSkills.length+cleanLackingSkillsArray.length))*100:0);
+              console.log("Lacking skills:", skillData.lackingSkills);
+              console.log("Optimisation Percentage:", localStorage.getItem("OptimisationPercentage"));
+            } else {
+              console.error("Error getting lacking skills:", skillData.error);
+            }
+          } catch (err) {
+            console.error("Failed to fetch lacking skills:", err);
+          }
+
         navigate("/view-resume");
       } catch (error) {
         alert("Error submitting job description. Please try again.");
