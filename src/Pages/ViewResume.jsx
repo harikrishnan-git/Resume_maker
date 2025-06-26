@@ -1,14 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect,useState, useRef } from "react";
 import Plain from "../Components/templates/Plain";
 import Sb2nov from "../Components/templates/Sb2nov";
 import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { set } from "mongoose";
 
 export default function viewResume() {
   // Get resume from local storage
   const resume = JSON.parse(localStorage.getItem("resume"));
   const resumeTemplate = JSON.parse(localStorage.getItem("resumeTemplate"));
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const pdfRef = useRef(null);
   const templates = {
@@ -20,6 +22,7 @@ export default function viewResume() {
 
   // Function to download the resume as PDF
   const downloadResume = async () => {
+    setLoading(true);
     const html = pdfRef.current.innerHTML;
 
     const res = await axios.post(
@@ -29,6 +32,12 @@ export default function viewResume() {
         responseType: "blob",
       }
     );
+
+    if(res.status !== 200) {
+      alert("Failed to generate PDF");
+      return;
+    }
+    setLoading(false);
 
     const url = URL.createObjectURL(new Blob([res.data]));
     const link = document.createElement("a");
@@ -46,18 +55,20 @@ export default function viewResume() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="bg-black min-h-screen">
+    <div className="container mx-auto p-4 bg-black">
       <div className="shadow-lg" ref={pdfRef}>
         {selectedTemplate}
       </div>
       <div className="flex justify-center mt-4">
         <button
           onClick={downloadResume}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-white text-black font-bold px-3 py-2 rounded w-xl hover:bg-gray-200 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Download Resume
+          {loading? "Loading..." : "Download Resume"}
         </button>
       </div>
+    </div>
     </div>
   );
 }

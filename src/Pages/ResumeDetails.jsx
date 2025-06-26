@@ -568,7 +568,7 @@ export default function ResumeDetails() {
             
         ))}
       </section>
-       <button className='ml-80 bg-white text-black font-bold px-3 py-2 rounded w-xl' onClick={handleSave}>Save Changes</button>
+       <button className='ml-80 bg-white text-black font-bold px-3 py-2 rounded w-xl hover:bg-gray-200 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed' onClick={handleSave}>Save Changes</button>
       </div>
       
       </div>

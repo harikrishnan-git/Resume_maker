@@ -16,7 +16,7 @@ app.use(cors({ origin: "http://localhost:5173" })); // allow React app to access
 
 app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
-app.use("/api/user/:userId/optimize-resume", jdRoutes);
+app.use("/api/user", jdRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

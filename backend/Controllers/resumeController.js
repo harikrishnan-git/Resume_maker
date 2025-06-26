@@ -123,9 +123,30 @@ export const generatePDF = async (req, res) => {
       { waitUntil: "networkidle" }
     );
 
+    await page.evaluate(async () => {
+    const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+    await Promise.all(
+      links.map(link => {
+        if (link.sheet) return;
+        return new Promise((resolve, reject) => {
+          link.onload = resolve;
+          link.onerror = reject;
+        });
+      })
+    );
+  });
+
+    await page.waitForTimeout(1000);
+
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
+      margin: {
+        top: "20mm",
+        right: "20mm",
+        bottom: "20mm",
+        left: "20mm",
+      },
     });
 
     await browser.close();
