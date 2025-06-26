@@ -49,7 +49,7 @@ export default function Jd() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              description: jobDescription,
+              jd: jobDescription,
               type: selectedType,
             }),
           }

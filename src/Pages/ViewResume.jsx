@@ -37,6 +37,7 @@ export default function viewResume() {
     document.body.appendChild(link);
     link.click();
   };
+
   // Check if JD is provided, if not redirect to JD page
   useEffect(() => {
     if (!resume) {

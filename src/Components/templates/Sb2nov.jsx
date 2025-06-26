@@ -1,3 +1,5 @@
+import EditField from "../EditField";
+
 const Resume = () => {
   const resume = JSON.parse(localStorage.getItem("resume"));
   if (!resume)
@@ -28,26 +30,32 @@ const Resume = () => {
     <div className="bg-white text-gray-900 max-w-4xl mx-auto p-10 font-sans">
       {/* Header */}
       <header className="text-center border-b pb-4">
-        <h1 className="text-3xl font-bold">{name}</h1>
+        <h1 className="text-3xl font-bold">
+          <EditField value={name} />
+        </h1>
         <div className="mt-2 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-          <span>{location}</span>
+          <span>
+            <EditField value={location} />
+          </span>
           <a href={`mailto:${email}`} className="hover:underline">
-            {email || null}
+            <EditField value={email || null} />
           </a>
           <a href={`tel:${address}`} className="hover:underline">
-            {address || null}
+            <EditField value={address || null} />
           </a>
           <a href={`tel:${phone}`} className="hover:underline">
-            {phone || null}
+            <EditField value={phone || null} />
           </a>
           <a href={website} className="hover:underline">
-            {website ? website.replace(/https?:\/\//, "") : null}
+            <EditField
+              value={website ? website.replace(/https?:\/\//, "") : null}
+            />
           </a>
           <a href={linkedin} className="hover:underline">
-            {linkedin ? "LinkedIn" : null}
+            <EditField value={linkedin ? "LinkedIn" : null} />
           </a>
           <a href={github} className="hover:underline">
-            {github ? "GitHub" : null}
+            <EditField value={github ? "GitHub" : null} />
           </a>
         </div>
       </header>
@@ -55,7 +63,7 @@ const Resume = () => {
       {/* Section Component */}
       {summary && (
         <Section title="Career Objective">
-          <p>{summary}</p>
+          <EditField value={summary} multiline={true} />
         </Section>
       )}
 
@@ -64,7 +72,7 @@ const Resume = () => {
           <ul className="list-disc list-inside">
             {skills.map((skill, i) => (
               <li key={i} className="text-sm text-gray-700">
-                {skill}
+                <EditField value={skill} />
               </li>
             ))}
           </ul>
@@ -135,7 +143,7 @@ const Resume = () => {
           <ul className="list-disc list-inside">
             {achievements.map((ach, i) => (
               <li key={i} className="text-sm text-gray-700">
-                {ach}
+                <EditField value={ach} />
               </li>
             ))}
           </ul>
@@ -147,7 +155,7 @@ const Resume = () => {
           <ul className="list-disc list-inside">
             {certifications.map((cert, i) => (
               <li key={i} className="text-sm text-gray-700">
-                {cert}
+                <EditField value={cert} />
               </li>
             ))}
           </ul>
@@ -159,7 +167,7 @@ const Resume = () => {
           <ul className="list-disc list-inside">
             {languages.map((lang, i) => (
               <li key={i} className="text-sm text-gray-700">
-                {lang}
+                <EditField value={lang} />
               </li>
             ))}
           </ul>
@@ -171,7 +179,7 @@ const Resume = () => {
           <ul className="list-disc list-inside">
             {referral.map((ref, i) => (
               <li key={i} className="text-sm text-gray-700">
-                {ref}
+                <EditField value={ref} />
               </li>
             ))}
           </ul>
@@ -195,7 +203,7 @@ const Resume = () => {
 const Section = ({ title, children }) => (
   <section className="mt-8">
     <h2 className="text-xl font-bold border-b mb-2 pb-1 text-blue-800">
-      {title}
+      <EditField value={title} />
     </h2>
     <div>{children}</div>
   </section>
@@ -204,13 +212,29 @@ const Section = ({ title, children }) => (
 const Entry = ({ title, subtitle, location, duration, description }) => (
   <div className="mb-4">
     <div className="flex justify-between flex-wrap text-sm text-gray-700">
-      <span className="font-semibold">{title}</span>
-      {duration && <span>{duration}</span>}
+      <span className="font-semibold">
+        <EditField value={title} />
+      </span>
+      {duration && (
+        <span>
+          <EditField value={duration} />
+        </span>
+      )}
     </div>
-    {subtitle && <p className="italic text-sm text-gray-600">{subtitle}</p>}
-    {location && <p className="text-sm text-gray-500">{location}</p>}
+    {subtitle && (
+      <p className="italic text-sm text-gray-600">
+        <EditField value={subtitle} />
+      </p>
+    )}
+    {location && (
+      <p className="text-sm text-gray-500">
+        <EditField value={location} />
+      </p>
+    )}
     {description && (
-      <p className="list-disc list-inside mt-1 text-sm">{description}</p>
+      <p className="list-disc list-inside mt-1 text-sm">
+        <EditField value={description} multiline={true} />
+      </p>
     )}
   </div>
 );
