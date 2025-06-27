@@ -50,7 +50,7 @@ export default function Jd() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              description: jobDescription,
+              jd: jobDescription,
               type: selectedType,
             }),
           }
@@ -137,18 +137,18 @@ export default function Jd() {
 
           <form
             onSubmit={(e) => handleSubmit(e)}
-            className="w-full max-w-3xl space-y-6 bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700"
+            className="w-full max-w-3xl space-y-6 bg-zinc-900 bg-opacity-40 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-zinc-600"
           >
             <div className="flex flex-col">
               <label
                 htmlFor="jobDescription"
-                className="text-gray-300 mb-2 font-medium"
+                className="text-white mb-2 font-medium"
               >
                 Job Description <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="jobDescription"
-                className="w-full h-64 p-5 border border-gray-600 rounded-xl bg-gray-900 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className="w-full h-64 p-5 border border-gray-600 rounded-xl bg-zinc-800 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300 transition duration-200 "
                 placeholder="Paste the job description here..."
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
@@ -159,14 +159,14 @@ export default function Jd() {
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="type" className="text-gray-300 mb-2 font-medium">
+              <label htmlFor="type" className="text-white mb-2 font-medium">
                 Resume Type <span className="text-red-500">*</span>
               </label>
               <select
                 id="type"
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className="p-3 border border-gray-600 rounded-lg bg-zinc-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-white transition duration-200"
                 required
               >
                 {resumeTypes.map((type, index) => (
@@ -181,7 +181,7 @@ export default function Jd() {
             <div className="flex flex-col">
               <label
                 htmlFor="template"
-                className="text-gray-300 mb-2 font-medium"
+                className="text-white mb-2 font-medium"
               >
                 Resume Template <span className="text-red-500">*</span>
               </label>
@@ -189,7 +189,7 @@ export default function Jd() {
                 id="template"
                 value={selectedTemplate}
                 onChange={(e) => setSelectedTemplate(e.target.value)}
-                className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className="p-3 border border-gray-600 rounded-lg bg-zinc-800 text-gray-100 focus:outline-none focus:ring-2 focus:ring-white transition duration-200"
                 required
               >
                 <option value="sb2nov">SB2Nov</option>
@@ -202,7 +202,7 @@ export default function Jd() {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-8 py-3 bg-white hover:bg-gray-300 text-black rounded-lg font-bold transition duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
               >
                 Submit
               </button>

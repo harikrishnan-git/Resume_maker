@@ -20,6 +20,7 @@ export default function ResumeForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [objective, setObjective] = useState("");
   const [skills, setSkills] = useState([]);
   const [certifications, setCertifications] = useState([]);
@@ -135,6 +136,7 @@ export default function ResumeForm() {
         name,
         email,
         address,
+        phone,
         objective,
         skills,
         education: educationFields,
@@ -166,14 +168,12 @@ export default function ResumeForm() {
   };
 
   return (
-    <div className="max-w-4xl min-h-screen mx-auto p-8 rounded-lg space-y-10 text-gray-200 shadow-lg">
-      <h1 className="text-4xl font-extrabold text-center mb-8 text-indigo-400">
-        Resume Builder
-      </h1>
+    <div className="mt-5 max-w-7xl mx-auto bg-black border-1 border-white rounded-lg shadow-lg p-8  space-y-10 text-gray-200">
+      
 
       {/* Resume Type Selection */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Resume Type<span className="text-red-500">*</span>
         </h2>
         <input
@@ -182,14 +182,14 @@ export default function ResumeForm() {
           value={resumeType}
           onChange={handleResumeTypeChange}
           placeholder="Type of job (eg: Salesman)"
-          className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
           required
         />
       </section>
 
       {/* Personal Information */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Personal Information<span className="text-red-500">*</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -199,7 +199,7 @@ export default function ResumeForm() {
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             required
           />
           <input
@@ -207,29 +207,37 @@ export default function ResumeForm() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             required
           />
           <textarea
             placeholder="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="w-full md:col-span-2 px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full md:col-span-2 px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300"
             rows={3}
+          />
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            required
           />
         </div>
       </section>
 
       {/* Career Objective */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Career Objective<span className="text-red-500">*</span>
         </h2>
         <textarea
           placeholder="Your career objective..."
           value={objective}
           onChange={(e) => setObjective(e.target.value)}
-          className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-gray-300"
           rows={4}
           required
         />
@@ -237,7 +245,7 @@ export default function ResumeForm() {
 
       {/* Skills */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">Skills</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Skills</h2>
         <div className="space-y-3">
           {skills.map((skill, index) => (
             <input
@@ -246,13 +254,13 @@ export default function ResumeForm() {
               value={skill}
               onChange={(e) => handleSkillsChange(index, e)}
               placeholder="Skill"
-              className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             type="button"
             onClick={handleAddSkills}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Skill
           </button>
@@ -261,7 +269,7 @@ export default function ResumeForm() {
 
       {/* Education */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Education
         </h2>
         <div className="space-y-6">
@@ -273,7 +281,7 @@ export default function ResumeForm() {
                 value={field.degree}
                 onChange={(e) => handleEducationChange(index, e)}
                 placeholder="Degree"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="text"
@@ -281,7 +289,7 @@ export default function ResumeForm() {
                 value={field.institution}
                 onChange={(e) => handleEducationChange(index, e)}
                 placeholder="Institution"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="text"
@@ -289,7 +297,7 @@ export default function ResumeForm() {
                 value={field.year}
                 onChange={(e) => handleEducationChange(index, e)}
                 placeholder="Year of Passing"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="number"
@@ -297,14 +305,14 @@ export default function ResumeForm() {
                 value={field.cgpa}
                 onChange={(e) => handleEducationChange(index, e)}
                 placeholder="CGPA"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddEducation}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-indigo-700 transition"
           >
             + Add Education
           </button>
@@ -313,7 +321,7 @@ export default function ResumeForm() {
 
       {/* Experience */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Experience
         </h2>
         <div className="space-y-6">
@@ -325,7 +333,7 @@ export default function ResumeForm() {
                 value={field.company}
                 onChange={(e) => handleExpChange(index, e)}
                 placeholder="Company Name"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="text"
@@ -333,7 +341,7 @@ export default function ResumeForm() {
                 value={field.role}
                 onChange={(e) => handleExpChange(index, e)}
                 placeholder="Role"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="text"
@@ -341,14 +349,14 @@ export default function ResumeForm() {
                 value={field.duration}
                 onChange={(e) => handleExpChange(index, e)}
                 placeholder="Duration"
-                className="w-full md:col-span-3 px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full md:col-span-3 px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddExperience}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-indigo-700 transition"
           >
             + Add Experience
           </button>
@@ -357,7 +365,7 @@ export default function ResumeForm() {
 
       {/*Projects*/}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Projects
         </h2>
         <div className="space-y-6">
@@ -369,7 +377,7 @@ export default function ResumeForm() {
                 value={field.title}
                 onChange={(e) => handleProjectChange(index, e)}
                 placeholder="Project Title"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <input
                 type="text"
@@ -377,21 +385,21 @@ export default function ResumeForm() {
                 value={field.tech}
                 onChange={(e) => handleProjectChange(index, e)}
                 placeholder="Technologies Used"
-                className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
               <textarea
                 name="description"
                 value={field.description}
                 onChange={(e) => handleProjectChange(index, e)}
                 placeholder="Description"
-                className="h-32 w-full md:col-span-3 px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="h-32 w-full md:col-span-3 px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
               />
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddProject}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Projects
           </button>
@@ -400,7 +408,7 @@ export default function ResumeForm() {
 
       {/* Referral */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Referral
         </h2>
         <div className="space-y-3">
@@ -411,12 +419,12 @@ export default function ResumeForm() {
               value={ref}
               onChange={(e) => handleReferralChange(index, e)}
               placeholder="Referral Name"
-              className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             onClick={handleAddReferrals}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Referral
           </button>
@@ -425,7 +433,7 @@ export default function ResumeForm() {
 
       {/* Certifications */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Certifications
         </h2>
         <div className="space-y-3">
@@ -436,12 +444,12 @@ export default function ResumeForm() {
               placeholder="Certification Name"
               type="text"
               onChange={(e) => handleCertificationsChange(index, e)}
-              className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-700 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             onClick={handleAddCertifications}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Certification
           </button>
@@ -450,7 +458,7 @@ export default function ResumeForm() {
 
       {/* Achievements */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Achievements
         </h2>
         <div className="space-y-3">
@@ -461,12 +469,12 @@ export default function ResumeForm() {
               value={achievements[index]}
               placeholder="Achievement"
               onChange={(e) => handleAchievementsChange(index, e)}
-              className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-700 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             onClick={handleAddAchievements}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Achievement
           </button>
@@ -475,7 +483,7 @@ export default function ResumeForm() {
 
       {/*Publications*/}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Publications
         </h2>
         <div className="space-y-3">
@@ -486,12 +494,12 @@ export default function ResumeForm() {
               value={publications[index]}
               placeholder="Publication"
               onChange={(e) => handlePublicationChange(index, e)}
-              className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-700 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 file:bg-indigo-600 file:text-white file:px-3 file:py-1 file:rounded file:border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             onClick={handleAddPublication}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Publication
           </button>
@@ -500,7 +508,7 @@ export default function ResumeForm() {
 
       {/* Languages */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-indigo-300">
+        <h2 className="text-2xl font-semibold mb-6 text-white">
           Languages
         </h2>
         <div className="space-y-3">
@@ -511,12 +519,12 @@ export default function ResumeForm() {
               value={lang}
               onChange={(e) => handleLanguagesChange(index, e)}
               placeholder="Language"
-              className="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-3 rounded-md bg-zinc-800 border border-zinc-600 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           ))}
           <button
             onClick={handleAddLanguages}
-            className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+            className="inline-block px-5 py-2 bg-white font-bold text-black rounded-md hover:bg-gray-300 transition"
           >
             + Add Language
           </button>
@@ -525,7 +533,7 @@ export default function ResumeForm() {
 
       <button
         onClick={handleSubmit}
-        className="w-full mt-10 px-6 py-4 bg-indigo-700 text-white font-semibold rounded-md hover:bg-indigo-800 transition"
+        className="w-full mt-10 px-6 py-4 bg-white text-black font-bold rounded-md hover:bg-gray-300 transition"
       >
         Submit
       </button>

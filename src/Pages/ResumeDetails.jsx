@@ -29,6 +29,9 @@ export default function ResumeDetails() {
 
                 data.skills = data.skills?.map(s => typeof s === "string" ? { name: s } : s);
                 data.languages = data.languages?.map(l => typeof l === "string" ? { name: l } : l);
+                data.certifications = data.certifications?.map(c => typeof c === "string" ? { name: c } : c) || [];
+                data.achievements = data.achievements?.map(a => typeof a === "string" ? { name: a } : a) || [];
+                data.referral = data.referral?.map(r => typeof r === "string" ? { name: r } : r) || [];
 
                 setResume(data);
             }

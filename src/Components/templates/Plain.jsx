@@ -1,4 +1,4 @@
-import React from "react";
+import EditField from "../EditField";
 
 const NewTemp = () => {
   const resume = JSON.parse(localStorage.getItem("resume"));
@@ -26,9 +26,12 @@ const NewTemp = () => {
       <div className="max-w-4xl mx-auto my-8 bg-white p-10 rounded-lg shadow-lg">
         {/* Header */}
         <header className="border-b-2 pb-4 mb-6">
-          <h1 className="text-4xl font-bold">{name}</h1>
+          <h1 className="text-4xl font-bold">
+            <EditField value={name} />
+          </h1>
           <p className="text-lg text-gray-600">
-            {email} {address && `| ${address}`}
+            <EditField value={email} />{" "}
+            <EditField value={address && `| ${address}`} />
           </p>
         </header>
 
@@ -36,20 +39,24 @@ const NewTemp = () => {
         {summary && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Summary
+              <EditField value="Summary" />
             </h2>
-            <p>{summary}</p>
+            <p>
+              <EditField value={summary} />
+            </p>
           </section>
         )}
 
         {/* Skills */}
         {skills.length > 0 && (
           <section className="mb-6">
-            <h2 className="text-xl font-semibold text-blue-700 mb-2">Skills</h2>
+            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+              <EditField value="Skills" />
+            </h2>
             <ul className="flex flex-wrap gap-2">
               {skills.map((skill, i) => (
                 <li key={i} className="bg-gray-200 text-sm px-3 py-1 rounded">
-                  {skill}
+                  <EditField value={skill} />
                 </li>
               ))}
             </ul>
@@ -60,15 +67,22 @@ const NewTemp = () => {
         {education.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Education
+              <EditField value="Education" />
             </h2>
             {education.map((edu, i) => (
               <div key={i} className="mb-4">
-                <h3 className="font-semibold">{edu.degree}</h3>
+                <h3 className="font-semibold">
+                  <EditField value={edu.degree} />
+                </h3>
                 <p className="text-sm text-gray-600">
-                  {edu.institution} | {edu.year}
+                  <EditField value={edu.institution} /> |{" "}
+                  <EditField value={edu.year} />
                 </p>
-                {edu.cgpa && <p className="text-sm">CGPA: {edu.cgpa}</p>}
+                {edu.cgpa && (
+                  <p className="text-sm">
+                    CGPA: <EditField value={edu.cgpa} />
+                  </p>
+                )}
               </div>
             ))}
           </section>
@@ -78,20 +92,21 @@ const NewTemp = () => {
         {experience.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Experience
+              <EditField value="Experience" />
             </h2>
             {experience.map((exp, i) => (
               <div key={i} className="mb-4">
-                <h3 className="font-semibold">{exp.role}</h3>
+                <h3 className="font-semibold">
+                  <EditField value={exp.role} />
+                </h3>
                 <p className="text-sm text-gray-600">
-                  {exp.company} | {exp.duration}
+                  <EditField value={exp.company} /> |{" "}
+                  <EditField value={exp.duration} />
                 </p>
                 {exp.description && (
-                  <ul className="list-disc list-inside mt-1 text-sm">
-                    {exp.description.map((line, j) => (
-                      <li key={j}>{line}</li>
-                    ))}
-                  </ul>
+                  <p className="mt-1 text-sm">
+                    <EditField value={exp.description} multiline />
+                  </p>
                 )}
               </div>
             ))}
@@ -102,17 +117,21 @@ const NewTemp = () => {
         {projects.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Projects
+              <EditField value="Projects" />
             </h2>
             {projects.map((project, i) => (
               <div key={i} className="mb-4">
-                <h3 className="font-semibold">{project.title}</h3>
+                <h3 className="font-semibold">
+                  <EditField value={project.title} />
+                </h3>
                 {project.tech && (
                   <p className="italic text-sm text-gray-600">
-                    Tech Used: {project.tech}
+                    Tech Used: <EditField value={project.tech} />
                   </p>
                 )}
-                <p className="text-sm">{project.description}</p>
+                <p className="text-sm">
+                  <EditField value={project.description} />
+                </p>
               </div>
             ))}
           </section>
@@ -122,11 +141,13 @@ const NewTemp = () => {
         {certifications.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Certifications
+              <EditField value={Certifications} />
             </h2>
             <ul className="list-disc list-inside">
               {certifications.map((cert, i) => (
-                <li key={i}>{cert}</li>
+                <li key={i}>
+                  <EditField value={cert} />
+                </li>
               ))}
             </ul>
           </section>
@@ -136,11 +157,13 @@ const NewTemp = () => {
         {achievements.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Achievements
+              <EditField value={Achievements} />
             </h2>
             <ul className="list-disc list-inside">
               {achievements.map((achieve, i) => (
-                <li key={i}>{achieve}</li>
+                <li key={i}>
+                  <EditField value={achieve} />
+                </li>
               ))}
             </ul>
           </section>
@@ -150,11 +173,13 @@ const NewTemp = () => {
         {publications.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Publications
+              <EditField value="Publications" />
             </h2>
             <ul className="list-disc list-inside">
               {publications.map((pub, i) => (
-                <li key={i}>{pub}</li>
+                <li key={i}>
+                  <EditField value={pub} />
+                </li>
               ))}
             </ul>
           </section>
@@ -164,11 +189,13 @@ const NewTemp = () => {
         {languages.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Languages
+              <EditField value="Languages" />
             </h2>
             <ul className="list-disc list-inside">
               {languages.map((lang, i) => (
-                <li key={i}>{lang}</li>
+                <li key={i}>
+                  <EditField value={lang} />
+                </li>
               ))}
             </ul>
           </section>
@@ -177,11 +204,13 @@ const NewTemp = () => {
         {referral.length > 0 && (
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-blue-700 mb-2">
-              Referrals
+              <EditField value="Referrals" />
             </h2>
             <ul className="list-disc list-inside">
               {referral.map((ref, i) => (
-                <li key={i}>{ref}</li>
+                <li key={i}>
+                  <EditField value={ref} />
+                </li>
               ))}
             </ul>
           </section>
