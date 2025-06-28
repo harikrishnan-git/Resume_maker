@@ -8,6 +8,7 @@ import cors from "cors";
 import userRoutes from "./Routes/userRoutes.js";
 import resumeRoutes from "./Routes/resumeRoutes.js";
 import jdRoutes from "./Routes/jdRoutes.js";
+import historyRoute from "./Routes/historyRoute.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors({ origin: "http://localhost:5173" })); // allow React app to access
 app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
 app.use("/api/user", jdRoutes);
+app.use("/api",historyRoute);
 
 mongoose
   .connect(process.env.MONGO_URI)

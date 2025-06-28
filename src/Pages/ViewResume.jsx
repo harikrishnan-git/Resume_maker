@@ -38,6 +38,29 @@ export default function viewResume() {
       alert("Failed to generate PDF");
       return;
     }
+    const pdfBlob = res.data;
+    const formData = new FormData();
+
+    formData.append("resumePdf", new Blob([pdfBlob], { type: "application/pdf" }));
+    formData.append("userId", localStorage.getItem("userId"));
+    formData.append("companyName", localStorage.getItem("companyName"));
+    formData.append("jobDescription", localStorage.getItem("jobDescription"));
+
+    // Step 3: Upload PDF with metadata to MongoDB
+    try {
+      const uploadRes = await axios.post("http://localhost:4000/api/save-resume", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (uploadRes.status === 200) {
+        console.log("Resume saved successfully to DB");
+      } else {
+        console.error("Failed to save resume in DB");
+      }
+    } catch (err) {
+      console.error("Error uploading resume", err);
+    }
+
     setLoading(false);
 
     const url = URL.createObjectURL(new Blob([res.data]));

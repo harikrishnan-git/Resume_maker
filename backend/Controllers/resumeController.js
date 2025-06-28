@@ -1,7 +1,7 @@
 import Resume from "../Model/resumeModel.js";
 import User from "../Model/userModel.js";
-import bodyParser from "body-parser";
 import { chromium } from "playwright";
+import History from "../Model/historyModel.js";
 
 // POST /api/user/:userId/resume
 export const createResume = async (req, res) => {
@@ -259,3 +259,35 @@ export const deleteResume = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const storeHistory = async (req, res) => {
+  const { userId, companyName, jobDescription } = req.body;
+  const resumePdfBuffer = req.file.buffer;
+
+  try {
+    await History.create({
+      userId,
+      companyName,
+      jobDescription,
+      resumePdf: resumePdfBuffer, // save as Buffer
+      createdAt: new Date(),
+    });
+
+    res.status(200).json({ message: "Resume saved successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error saving resume" });
+  }
+}
+
+export const getHistory = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const history = await History.find({ userId }).sort({ createdAt: -1 });
+    res.status(200).json(history);
+  } catch (error) {
+    console.error("Error fetching history:", error);
+    res.status(500).json({ error: "Server error while fetching history" });
+  }
+}

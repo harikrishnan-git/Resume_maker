@@ -1,3 +1,5 @@
+
+import { set } from "mongoose";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +8,7 @@ export default function Jd() {
   const userId = localStorage.getItem("userId");
   const [loading, setLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState("Sb2nov");
+  const [companyName, setCompanyName] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [resumeTypes, setResumeTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
@@ -39,7 +42,7 @@ export default function Jd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (jobDescription.trim() && selectedType !== "") {
+    if (companyName && jobDescription.trim() && selectedType !== "") {
       setLoading(true);
       try {
         const res = await fetch(
@@ -65,6 +68,8 @@ export default function Jd() {
           "resumeTemplate",
           JSON.stringify(selectedTemplate)
         );
+        localStorage.setItem("companyName", companyName);
+        localStorage.setItem("jobDescription", jobDescription);
 
         //fetch lacking skills
         const resumeSkills = data.optimizedResume.skills || [];
@@ -140,6 +145,24 @@ export default function Jd() {
             className="w-full max-w-3xl space-y-6 bg-zinc-900 bg-opacity-40 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-zinc-600"
           >
             <div className="flex flex-col">
+              <label
+                htmlFor="companyName"
+                className="text-white mb-2 font-medium"
+              >
+                Company Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="companyName"
+                className="w-full mb-6 p-5 border border-gray-600 rounded-xl bg-zinc-800 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300 transition duration-200 "
+                placeholder="Enter the company name here..."
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                required
+                autoFocus
+                style={{ fontFamily: "monospace", fontSize: "16px" }}
+              />
+            
+
               <label
                 htmlFor="jobDescription"
                 className="text-white mb-2 font-medium"

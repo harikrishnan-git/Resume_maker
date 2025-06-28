@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import UserHistory from "../Components/UserHistory";
 
 export default function Dashboard() {
   const userId = localStorage.getItem("userId");
@@ -54,36 +55,41 @@ export default function Dashboard() {
       >
         + Create New Profile
       </Link>
+       <h2 className="text-2xl mr-275 font-bold mb-4 text-white">My Resumes</h2>
+       <UserHistory/>
       
-
+      
+      <h2 className="text-2xl font-bold mr-275 mb-4 text-white">My Profiles</h2>
       {resumes.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1240px]">
           {resumes.map((resume) => (
             <div
               key={resume._id}
-              className="bg-gray-300 p-6 rounded-lg shadow hover:border-1 borser-white transition w-full"
+              className="relative max-h-[300px]  overflow-hidden text-gray-300 bg-zinc-900 bg-opacity-40 backdrop-blur-md border border-zinc-600 p-6 rounded shadow-xl hover:border-1 borser-zinc-600 transition w-full"
             >
-              <h2 className="text-center text-2xl text-black font-bold mb-2">
+              <div className="overflow-hidden ">
+               
+              <h2 className="text-center text-2xl text-white font-bold mb-2">
                 {resume.type}
               </h2>
 
               <p className="mb-1">
-                <span className="text-black font-semibold">Name:</span> {resume.name}
+                <span className="text-white font-semibold">Name:</span> {resume.name}
               </p>
               <p className="mb-1">
-                <span className="text-black font-semibold">Email:</span> {resume.email}
+                <span className="text-white font-semibold">Email:</span> {resume.email}
               </p>
               <p className="mb-1">
-                <span className="text-black font-semibold">Address:</span> {resume.address}
+                <span className="text-white font-semibold">Address:</span> {resume.address}
               </p>
               <p className="mb-3">
-                <span className="text-black font-semibold">Career Objective:</span>{" "}
+                <span className="text-white font-semibold">Career Objective:</span>{" "}
                 {resume.careerObjective}
               </p>
 
               {resume.skills.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Skills:</span>
+                  <span className="text-white font-semibold">Skills:</span>
                   <ul className="list-disc ml-5">
                     {resume.skills?.map((skill, index) => (
                       <li key={index}>{skill}</li>
@@ -94,12 +100,12 @@ export default function Dashboard() {
 
               {resume.education.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Education:</span>
+                  <span className="text-white font-semibold">Education:</span>
                   <ul className="list-disc ml-5 ">
                     {resume.education?.map((edu, index) => (
                       <li key={index}>
                         <p>
-                          <span className="text-gray-700 font-semibold">
+                          <span className="font-semibold">
                             {edu.degree}
                           </span>{" "}
                           — {edu.institution}
@@ -115,11 +121,11 @@ export default function Dashboard() {
 
               {resume.experience?.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Experience:</span>
+                  <span className="text-white font-semibold">Experience:</span>
                   <ul className="list-disc ml-5">
                     {resume.experience?.map((exp, index) => (
                       <li key={index}>
-                        <p className="font-semibold text-gray-700">
+                        <p className="font-semibold ">
                           {exp.role}
                         </p>
                         <p className="text-sm">{exp.company}</p>
@@ -134,11 +140,11 @@ export default function Dashboard() {
 
               {resume.projects?.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Projects:</span>
+                  <span className="text-white font-semibold">Projects:</span>
                   <ul className="list-disc ml-5">
                     {resume.projects?.map((exp, index) => (
                       <li key={index}>
-                        <p className="font-semibold text-gray-700">
+                        <p className="font-semibold">
                           {exp.title}
                         </p>
                         <p className="text-sm ">{exp.tech}</p>
@@ -153,14 +159,14 @@ export default function Dashboard() {
 
               {resume.referral.length > 0 && (
                 <p className="mb-1">
-                  <span className="text-black font-semibold">Referral:</span>{" "}
+                  <span className="text-white font-semibold">Referral:</span>{" "}
                   {resume.referral}
                 </p>
               )}
 
               {resume.certifications.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Certifications:</span>
+                  <span className="text-white font-semibold">Certifications:</span>
                   <ul className="list-disc ml-5">
                     {resume.certifications?.map((cert, index) => (
                       <li key={index}>{cert}</li>
@@ -171,7 +177,7 @@ export default function Dashboard() {
 
               {resume.achievements.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Achievements:</span>
+                  <span className="text-white font-semibold">Achievements:</span>
                   <ul className="list-disc ml-5 ">
                     {resume.achievements?.map((ach, index) => (
                       <li key={index}>{ach}</li>
@@ -182,7 +188,7 @@ export default function Dashboard() {
 
               {resume.publications.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Publications:</span>
+                  <span className="text-white font-semibold">Publications:</span>
                   <ul className="list-disc ml-5 ">
                     {resume.publications?.map((ach, index) => (
                       <li key={index}>{ach}</li>
@@ -193,7 +199,7 @@ export default function Dashboard() {
 
               {resume.languages.length > 0 && (
                 <div className="mb-3">
-                  <span className="text-black font-semibold">Languages:</span>
+                  <span className="text-white font-semibold">Languages:</span>
                   <ul className="list-disc ml-5 ">
                     {resume.languages?.map((lang, index) => (
                       <li key={index}>{lang}</li>
@@ -201,15 +207,20 @@ export default function Dashboard() {
                   </ul>
                 </div>
               )}
+              <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-zinc-900 to-transparent pointer-events-none"></div>
+              
 
+              </div>
+              
               <Link
                 to={`/resume/${resume._id}`}
                 state={{ resume }} // ✅ Pass full resume if needed
-                className="inline-block px-4 py-2 mt-4 bg-black text-white rounded-md hover:bg-gray-700 transition"
+                className="absolute bottom-4 right-4 text-center w-[100px] px-4 py-2  bg-white text-black font-bold rounded-md hover:bg-gray-300 transition"
               >
-                View Resume
+                View
               </Link>
-            </div>
+              
+              </div>
           ))}
         </div>
       ) : (
