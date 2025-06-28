@@ -22,7 +22,7 @@ export default function Register() {
       navigate("/login");
     } catch (error) {
       console.error("Registration error:", error);
-      alert(error.message || "Registration failed");
+      toast.error(error.message || "Registration failed");
     }
   };
   return (

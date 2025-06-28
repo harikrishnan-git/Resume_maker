@@ -1,5 +1,5 @@
-import { useState } from "react";
 import "./App.css";
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login";
@@ -29,6 +29,7 @@ function App() {
         <Route path="/view-resume" element={<ViewResume />}></Route>
         {/* Add more routes as needed */}
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 }

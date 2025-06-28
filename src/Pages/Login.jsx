@@ -23,7 +23,7 @@ export default function Login() {
       navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      alert(error.message || "Login failed");
+      toast.error(error.message || "Login failed");
     }
   };
   return (
