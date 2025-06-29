@@ -86,7 +86,7 @@ export default function viewResume() {
   }, []);
 
   return (
-    <div className="flex gap-10 bg-black min-h-screen w-screen text-white justify-center ">
+    <div className="lg:flex flex-column gap-10 bg-black min-h-screen w-screen text-white justify-center ">
       <div className="px-10 py-10 bg-black shadow-lg" ref={pdfRef}>
         {selectedTemplate}
         <div className="flex justify-center mt-6">
@@ -98,7 +98,7 @@ export default function viewResume() {
           </button>
         </div>
       </div>
-      <div className="py-10 px-10 w-1/2">
+      <div className="py-10 px-10 mx-auto w-1/2">
         <LackingSkills />
       </div>
     </div>
