@@ -2,6 +2,7 @@ import Resume from "../Model/resumeModel.js";
 import User from "../Model/userModel.js";
 import { chromium } from "playwright";
 import History from "../Model/historyModel.js";
+import fs from "fs/promises";
 
 // POST /api/user/:userId/resume
 export const createResume = async (req, res) => {
@@ -103,6 +104,11 @@ export const generatePDF = async (req, res) => {
   const { html } = req.body;
 
   try {
+    const css = await fs.readFile("./backend/style/output.css", "utf-8");
+    if (!css) {
+      console.error("CSS file not found or empty on backend");
+      return res.status(500).send("CSS file not found or empty on backend");
+    }
     const browser = await chromium.launch();
     const page = await browser.newPage();
 
@@ -113,7 +119,7 @@ export const generatePDF = async (req, res) => {
         <head>
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+          <link href=
         </head>
         <body>
           ${html}
@@ -123,18 +129,22 @@ export const generatePDF = async (req, res) => {
       { waitUntil: "networkidle" }
     );
 
+    await page.addStyleTag({ content: css });
+
     await page.evaluate(async () => {
-    const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-    await Promise.all(
-      links.map(link => {
-        if (link.sheet) return;
-        return new Promise((resolve, reject) => {
-          link.onload = resolve;
-          link.onerror = reject;
-        });
-      })
-    );
-  });
+      const links = Array.from(
+        document.querySelectorAll('link[rel="stylesheet"]')
+      );
+      await Promise.all(
+        links.map((link) => {
+          if (link.sheet) return;
+          return new Promise((resolve, reject) => {
+            link.onload = resolve;
+            link.onerror = reject;
+          });
+        })
+      );
+    });
 
     await page.waitForTimeout(1000);
 
@@ -278,7 +288,7 @@ export const storeHistory = async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Error saving resume" });
   }
-}
+};
 
 export const getHistory = async (req, res) => {
   const { userId } = req.params;
@@ -290,4 +300,4 @@ export const getHistory = async (req, res) => {
     console.error("Error fetching history:", error);
     res.status(500).json({ error: "Server error while fetching history" });
   }
-}
+};
