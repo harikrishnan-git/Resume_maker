@@ -80,7 +80,7 @@ export default function Template3() {
         {skills.length > 0 && (
           <div>
             {skills.map((skill, i) => (
-              <p className="pl-[25px] mb-[10px]">
+              <p className="pl-[25px] mb-[10px]" key={i}>
                 <EditField value={skill} />
               </p>
             ))}
@@ -93,7 +93,7 @@ export default function Template3() {
         {education.length > 0 && (
           <div>
             {education.map((ed, i) => (
-              <div>
+              <div key={i}>
                 <p className="pl-[25px] font-bold">
                   <EditField value={ed.institution} />
                 </p>
