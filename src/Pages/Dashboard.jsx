@@ -56,7 +56,8 @@ export default function Dashboard() {
         + Create New Profile
       </Link>
        <h2 className="text-2xl mr-275 font-bold mb-4 text-white">My Resumes</h2>
-       <UserHistory/>
+        <UserHistory />
+      
       
       
       <h2 className="text-2xl font-bold mr-275 mb-4 text-white">My Profiles</h2>

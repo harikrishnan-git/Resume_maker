@@ -291,3 +291,33 @@ export const getHistory = async (req, res) => {
     res.status(500).json({ error: "Server error while fetching history" });
   }
 }
+
+export const getHistoryById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const historyItem = await History.findById(id);
+    if (!historyItem) {
+      return res.status(404).json({ error: "History item not found" });
+    }
+    res.status(200).json(historyItem);
+  } catch (error) {
+    console.error("Error fetching history item:", error);
+    res.status(500).json({ error: "Server error while fetching history item" });
+  }
+}
+
+export const deleteHistoryItem = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const historyItem = await History.findByIdAndDelete(id);
+    if (!historyItem) {
+      return res.status(404).json({ error: "History item not found" });
+    }
+    res.status(200).json({ message: "History item deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting history item:", error);
+    res.status(500).json({ error: "Server error while deleting history item" });
+  }
+}

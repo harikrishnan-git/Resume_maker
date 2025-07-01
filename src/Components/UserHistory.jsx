@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function UserHistory() {
     const userId = localStorage.getItem("userId");
@@ -37,6 +38,7 @@ export default function UserHistory() {
     <div className="p-6 text-white">
       <ul className="space-y-4">
         {history.map((item, index) => (
+          <Link to={`/history/${item._id}`}>
           <li key={index} className="border border-zinc-600 p-4 rounded bg-zinc-900 ">
             <p className='text-xl mb-3'><strong> {item.companyName}</strong></p>
             <div className='flex gap-2'>
@@ -54,6 +56,7 @@ export default function UserHistory() {
             <p className='text-sm text-gray-400 mt-2'>Created at: {new Date(item.createdAt).toLocaleDateString()}</p>
             
           </li>
+          </Link>
         ))}
       </ul>
     </div>

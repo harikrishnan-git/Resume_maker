@@ -11,6 +11,7 @@ import CreateResume from "./Pages/CreateResume";
 import ResumeDetails from "./Pages/ResumeDetails";
 import ViewResume from "./Pages/ViewResume";
 import Navbar from "./Components/Navbar";
+import HistoryDetails from "./Pages/HistoryDetails";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/resume" element={<CreateResume />}></Route>
         <Route path="/resume/:id" element={<ResumeDetails />}></Route>
+        <Route path="/history/:id" element={<HistoryDetails />}></Route>
         <Route path="/signup" element={<Register />}></Route>
         <Route path="/jd" element={<Jd />}></Route>
         <Route path="/view-resume" element={<ViewResume />}></Route>
