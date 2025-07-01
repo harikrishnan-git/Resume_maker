@@ -1,13 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { TbLogout } from "react-icons/tb";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsAuthenticated(false);
+    navigate("/");
+  };
 
   return (
-    <header className="bg-black border-b border-gray-800">
+    <header className="bg-black border-b border-gray-800 w-full">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="text-xl font-bold text-white">Resume Maker</div>
@@ -59,18 +68,26 @@ export default function Header() {
 
         {/* Auth Buttons (Hidden on mobile) */}
         <div className="hidden md:flex space-x-4">
-          <Link
-            to="/login"
-            className="px-4 py-2 border border-white text-white font-semibold rounded hover:bg-gray-700 transition"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-300 transition"
-          >
-            Get Started
-          </Link>
+          {isAuthenticated ? (
+            <button className="text-white size-5" onClick={handleLogout}>
+              <TbLogout />
+            </button>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 border border-white text-white font-semibold rounded hover:bg-gray-700 transition"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-300 transition"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
@@ -106,27 +123,31 @@ export default function Header() {
             >
               JD
             </Link>
-            <Link
-              to="/pricing"
-              onClick={() => setMenuOpen(false)}
-              className="hover:text-gray-400"
-            >
-              Pricing
-            </Link>
-            <Link
-              to="/login"
-              onClick={() => setMenuOpen(false)}
-              className="mt-3 px-4 py-2 border border-white text-white font-semibold rounded hover:bg-gray-700 transition"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-300 transition"
-            >
-              Get Started
-            </Link>
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="text-white px-4 py-2 border border-white font-semibold hover:bg-gray-700 transition"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-3 px-4 py-2 border border-white text-white font-semibold rounded hover:bg-gray-700 transition"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-300 transition"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}
