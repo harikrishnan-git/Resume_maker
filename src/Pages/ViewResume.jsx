@@ -1,10 +1,9 @@
-import { useEffect,useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Plain from "../Components/templates/Plain";
 import Sb2nov from "../Components/templates/Sb2nov";
 import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { set } from "mongoose";
 import LackingSkills from "../Components/LackingSkills";
 
 export default function viewResume() {
@@ -34,23 +33,30 @@ export default function viewResume() {
       }
     );
 
-    if(res.status !== 200) {
-      alert("Failed to generate PDF");
+    if (res.status !== 200) {
+      toast.error("Failed to generate PDF");
       return;
     }
     const pdfBlob = res.data;
     const formData = new FormData();
 
-    formData.append("resumePdf", new Blob([pdfBlob], { type: "application/pdf" }));
+    formData.append(
+      "resumePdf",
+      new Blob([pdfBlob], { type: "application/pdf" })
+    );
     formData.append("userId", localStorage.getItem("userId"));
     formData.append("companyName", localStorage.getItem("companyName"));
     formData.append("jobDescription", localStorage.getItem("jobDescription"));
 
     // Step 3: Upload PDF with metadata to MongoDB
     try {
-      const uploadRes = await axios.post("http://localhost:4000/api/save-resume", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const uploadRes = await axios.post(
+        "http://localhost:4000/api/save-resume",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (uploadRes.status === 200) {
         console.log("Resume saved successfully to DB");
@@ -74,28 +80,27 @@ export default function viewResume() {
   // Check if JD is provided, if not redirect to JD page
   useEffect(() => {
     if (!resume) {
-      alert("Create profile first");
+      toast.error("Create profile first");
       navigate("/resume");
     }
   }, []);
 
   return (
-    <div className="flex gap-10 bg-black min-h-screen w-screen text-white justify-center ">
+    <div className="lg:flex flex-column gap-10 bg-black min-h-screen w-screen text-white justify-center ">
       <div className="px-10 py-10 bg-black shadow-lg" ref={pdfRef}>
         {selectedTemplate}
         <div className="flex justify-center mt-6">
-        <button
-          onClick={downloadResume}
-          className="bg-white text-black font-bold px-3 py-2 rounded w-xl hover:bg-gray-200 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading? "Loading..." : "Download Resume"}
-        </button>
+          <button
+            onClick={downloadResume}
+            className="bg-white text-black font-bold px-3 py-2 rounded w-xl hover:bg-gray-200 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? "Loading..." : "Download Resume"}
+          </button>
+        </div>
       </div>
+      <div className="py-10 px-10 mx-auto w-1/2">
+        <LackingSkills />
       </div>
-    <div className="py-10 px-10 w-1/2">
-       <LackingSkills/>
     </div>
-    </div>
-   
   );
 }

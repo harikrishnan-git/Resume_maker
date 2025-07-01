@@ -8,5 +8,4 @@ const router = express.Router();
 router.post("/:userId/optimize-resume", optimizeResume);
 router.post("/:userId/lacking-skills", lackingSkills);
 
-
 export default router;

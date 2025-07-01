@@ -1,7 +1,6 @@
-
-import { set } from "mongoose";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function Jd() {
   const navigate = useNavigate();
@@ -32,6 +31,7 @@ export default function Jd() {
         setResumeTypes(updated);
       } catch (error) {
         console.error("Error fetching resume types:", error);
+        toast.error("Failed to fetch resume types. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -75,7 +75,9 @@ export default function Jd() {
         const resumeSkills = data.optimizedResume.skills || [];
         console.log("Resume skills:", resumeSkills);
         try {
-            const skillRes = await fetch(`http://localhost:4000/api/user/${userId}/lacking-skills`, {
+          const skillRes = await fetch(
+            `http://localhost:4000/api/user/${userId}/lacking-skills`,
+            {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -84,35 +86,46 @@ export default function Jd() {
                 jd: jobDescription,
                 resumeSkills,
               }),
-            });
-
-            const skillData = await skillRes.json();
-            if (skillRes.ok) {
-              localStorage.setItem("lackingSkills", skillData.lackingSkills);
-              setLackingSkills(skillData.lackingSkills);
-              const cleanLackingSkillsArray = skillData.lackingSkills
-              .split(",")
-              .map(skill => skill.trim())
-              .filter(skill => skill.length > 0);
-              localStorage.setItem("OptimisationPercentage",resumeSkills.length? (resumeSkills.length/(resumeSkills.length+cleanLackingSkillsArray.length))*100:0);
-              console.log("Lacking skills:", skillData.lackingSkills);
-              console.log("Optimisation Percentage:", localStorage.getItem("OptimisationPercentage"));
-            } else {
-              console.error("Error getting lacking skills:", skillData.error);
             }
-          } catch (err) {
-            console.error("Failed to fetch lacking skills:", err);
+          );
+
+          const skillData = await skillRes.json();
+          if (skillRes.ok) {
+            localStorage.setItem("lackingSkills", skillData.lackingSkills);
+            setLackingSkills(skillData.lackingSkills);
+            const cleanLackingSkillsArray = skillData.lackingSkills
+              .split(",")
+              .map((skill) => skill.trim())
+              .filter((skill) => skill.length > 0);
+            localStorage.setItem(
+              "OptimisationPercentage",
+              resumeSkills.length
+                ? (resumeSkills.length /
+                    (resumeSkills.length + cleanLackingSkillsArray.length)) *
+                    100
+                : 0
+            );
+            console.log("Lacking skills:", skillData.lackingSkills);
+            console.log(
+              "Optimisation Percentage:",
+              localStorage.getItem("OptimisationPercentage")
+            );
+          } else {
+            console.error("Error getting lacking skills:", skillData.error);
           }
+        } catch (err) {
+          console.error("Failed to fetch lacking skills:", err);
+        }
 
         navigate("/view-resume");
       } catch (error) {
-        alert("Error submitting job description. Please try again.");
+        toast.error("Error submitting job description. Please try again.");
         console.error("Error:", error);
       } finally {
         setLoading(false);
       }
     } else {
-      alert("Please enter a job description and select resume type.");
+      toast.error("Please enter a job description and select resume type.");
     }
   };
   return (
@@ -161,7 +174,6 @@ export default function Jd() {
                 autoFocus
                 style={{ fontFamily: "monospace", fontSize: "16px" }}
               />
-            
 
               <label
                 htmlFor="jobDescription"
@@ -202,10 +214,7 @@ export default function Jd() {
 
             {/* Resume Template */}
             <div className="flex flex-col">
-              <label
-                htmlFor="template"
-                className="text-white mb-2 font-medium"
-              >
+              <label htmlFor="template" className="text-white mb-2 font-medium">
                 Resume Template <span className="text-red-500">*</span>
               </label>
               <select
