@@ -24,6 +24,7 @@ export default function viewResume() {
   const downloadResume = async () => {
     setLoading(true);
     const html = pdfRef.current.innerHTML;
+    console.log("HTML content for PDF:", html);
 
     const res = await axios.post(
       "http://localhost:4000/api/generate-pdf",
@@ -87,8 +88,8 @@ export default function viewResume() {
 
   return (
     <div className="lg:flex flex-column gap-10 bg-black min-h-screen w-screen text-white justify-center ">
-      <div className="px-10 py-10 bg-black shadow-lg" ref={pdfRef}>
-        {selectedTemplate}
+      <div className="px-10 py-10 bg-black shadow-lg">
+        <div ref={pdfRef}>{selectedTemplate}</div>
         <div className="flex justify-center mt-6">
           <button
             onClick={downloadResume}

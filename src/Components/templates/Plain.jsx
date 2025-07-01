@@ -23,7 +23,7 @@ const NewTemp = () => {
 
   return (
     <main className="bg-gray-100 text-gray-800 font-sans">
-      <div className="max-w-4xl mx-auto my-8 bg-white p-10 rounded-lg shadow-lg">
+      <div className="max-w-4xl mx-auto my-8 bg-white p-10">
         {/* Header */}
         <header className="border-b-2 pb-4 mb-6">
           <h1 className="text-4xl font-bold">

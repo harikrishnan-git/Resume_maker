@@ -28,7 +28,7 @@ export default function Template3() {
     languages = [],
   } = resume["optimizedResume"];
   return (
-    <div className="relative w-[90%] max-w-[1200px] mx-auto mt-20 bg-white text-black shadow-lg">
+    <div className="relative w-[90%] max-w-[1200px] mx-auto mt-20 bg-white text-black">
       {/* Top Bar */}
       <div className="h-[220px] bg-gray-500 text-black relative">
         <div className="text-black absolute left-1/2  text-center right-30 top-25  h-[120px] text-[58px] tracking-[8px] font-thin leading-[60px] font-raleway">
