@@ -17,6 +17,11 @@ export default function Jd() {
     const getResumeTypes = async () => {
       setLoading(true);
       try {
+        if (!userId) {
+          toast.error("User ID not found. Please log in.");
+          navigate("/login");
+          return;
+        }
         const res = await fetch(
           `http://localhost:4000/api/user/${userId}/resume`,
           {

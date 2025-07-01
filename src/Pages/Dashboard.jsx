@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserHistory from "../Components/UserHistory";
+import toast from "react-hot-toast";
 
 export default function Dashboard() {
   const userId = localStorage.getItem("userId");
   const [username, setUserName] = useState("");
   const [resumes, setResumes] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserName = async () => {
       try {
@@ -40,12 +45,17 @@ export default function Dashboard() {
     if (userId) {
       fetchUserName();
       fetchResumes();
+    } else {
+      toast.error(
+        "You are not logged in. Please log in to access your dashboard."
+      );
+      navigate("/login");
     }
   }, [userId]);
   return (
     <div className="bg-gradient-to-b from-black to-gray-900 text-gray-700 min-h-screen py-12 px-4 flex flex-col items-center">
       <h1 className="text-4xl font-bold mb-4 text-white">
-        Welcome, {username}
+        Welcome, {isAuthenticated ? username : "User"}
       </h1>
 
       <div className="text-center mb-8 max-w-2xl">
@@ -61,12 +71,16 @@ export default function Dashboard() {
         + Create New Profile
       </Link>
       <div className="w-full max-w-[1240px] mb-8">
-        <h2 className="text-2xl font-bold mb-4 text-white">My Resumes</h2>
+        <h2 className="text-2xl font-bold mb-4 text-white">
+          {isAuthenticated ? "My Resumes" : ""}
+        </h2>
         <UserHistory />
       </div>
 
       <div className="w-full max-w-[1240px]">
-        <h2 className="text-2xl font-bold mb-4 text-white">My Profiles</h2>
+        <h2 className="text-2xl font-bold mb-4 text-white">
+          {resumes.length > 0 ? "My Profiles" : ""}
+        </h2>
         {resumes.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {resumes.map((resume) => (

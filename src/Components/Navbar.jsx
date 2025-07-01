@@ -69,7 +69,10 @@ export default function Header() {
         {/* Auth Buttons (Hidden on mobile) */}
         <div className="hidden md:flex space-x-4">
           {isAuthenticated ? (
-            <button className="text-white size-5" onClick={handleLogout}>
+            <button
+              className="text-white size-5 cursor-pointer hover:text-gray-200 transition"
+              onClick={handleLogout}
+            >
               <TbLogout />
             </button>
           ) : (
