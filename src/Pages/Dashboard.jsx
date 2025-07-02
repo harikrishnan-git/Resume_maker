@@ -12,7 +12,6 @@ export default function Dashboard() {
     localStorage.getItem("token") ? true : false
   );
   const navigate = useNavigate();
-  toast.error("Failed to delete resume");
   useEffect(() => {
     const fetchUserName = async () => {
       try {
