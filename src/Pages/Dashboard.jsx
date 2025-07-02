@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserHistory from "../Components/UserHistory";
 import toast from "react-hot-toast";
+import bin from "../assets/bin.png";
 
 export default function Dashboard() {
   const userId = localStorage.getItem("userId");
@@ -52,6 +53,24 @@ export default function Dashboard() {
       navigate("/login");
     }
   }, [userId]);
+
+  const handleDelete = async (resumeId) => {
+    try{
+      const response = await fetch(`http://localhost:4000/api/resume/${resumeId}`, {
+        method: "DELETE",
+      });
+      if(!response.ok){
+        toast.error("Failed to delete resume");
+        throw new Error("Failed to delete resume");
+      }
+      toast.success("Resume deleted successfully");
+      setResumes((prevResumes) => prevResumes.filter((resume) => resume._id !== resumeId));
+    } catch (err) {
+      toast.error("Failed to delete resume");
+    }
+  }
+
+  
   return (
     <div className="bg-gradient-to-b from-black to-gray-900 text-gray-700 min-h-screen py-12 px-4 flex flex-col items-center">
       <h1 className="text-4xl font-bold mb-4 text-white">
@@ -89,10 +108,15 @@ export default function Dashboard() {
                 className="relative max-h-[300px]  overflow-hidden text-gray-300 bg-zinc-900 bg-opacity-40 backdrop-blur-md border border-zinc-600 p-6 rounded shadow-xl hover:border-1 borser-zinc-600 transition w-full"
               >
                 <div className="overflow-hidden ">
-                  <h2 className="text-center text-2xl text-white font-bold mb-2">
-                    {resume.type}
-                  </h2>
-
+                  <div className="flex">
+                    <h2 className="text-center text-2xl text-white font-bold mb-2">
+                      {resume.type}
+                    </h2>
+                    <div className="rounded ml-auto flex w-[30px] h-[30px] justify-center items-center hover:bg-zinc-800 ">
+                      <button className="w-[20px] h-[20px]" onClick={()=>handleDelete(resume._id)}><img src={bin} alt="delete" width={30} height={30}/></button>
+                    </div>
+                  </div>
+                  
                   <p className="mb-1">
                     <span className="text-white font-semibold">Name:</span>{" "}
                     {resume.name}

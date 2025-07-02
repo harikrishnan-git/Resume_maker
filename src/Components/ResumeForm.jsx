@@ -161,7 +161,7 @@ export default function ResumeForm() {
         }
       );
 
-      navigate("/about");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -169,7 +169,6 @@ export default function ResumeForm() {
 
   return (
     <div className="mt-5 max-w-7xl mx-auto bg-black border-1 border-white rounded-lg shadow-lg p-8  space-y-10 text-gray-200">
-      
 
       {/* Resume Type Selection */}
       <section>

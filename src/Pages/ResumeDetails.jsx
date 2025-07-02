@@ -115,6 +115,24 @@ export default function ResumeDetails() {
     }));
   };
 
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this resume?")) {
+      try {
+        const response = await fetch(`http://localhost:4000/api/resume/${id}`,{
+          method: "DELETE",
+        });
+        if(!response.ok){
+          toast.error("Failed to delete resume");
+          throw new Error("Failed to delete resume");
+        }
+        toast.success("Resume deleted successfully");
+        navigate("/dashboard");
+      } catch (err) {
+        toast.error("Failed to delete resume");
+      }
+    }
+  };
+
   if (loading) return <div className="p-6">Loading...</div>;
   if (error) return <div className="p-6 text-red-600">Error: {error}</div>;
 
@@ -124,14 +142,26 @@ export default function ResumeDetails() {
   return (
     <div className="bg-black min-h-screen text-white p-8">
       <div className="max-w-7xl mx-auto bg-black border-1 border-white p-6 rounded-lg shadow">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          {resume.name}'s Resume
-        </h1>
+        <div className="flex mb-6">
+          <h1 className="text-3xl font-bold text-center">
+            Resume Details
+          </h1>
+          <div className="rounded ml-auto -mt-2 flex w-[50px] h-[50px] justify-center items-center hover:bg-zinc-800 ">
+            <button onClick={handleDelete}><img src={bin} alt="delete" width={30} height={30}/></button>
+          </div>
+        </div>
+        
 
         {/*Contact info*/}
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-4">Personal Details</h2>
           <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="name" className={labelStyle}>
+                Name
+              </label>
+              <input className={inputStyle} value={resume.name} readOnly />
+            </div>
             <div>
               <label htmlFor="email" className={labelStyle}>
                 Email

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import bin from "../assets/bin.png";
+import toast from 'react-hot-toast';
 
 export default function UserHistory() {
   const userId = localStorage.getItem("userId");
@@ -36,13 +38,39 @@ export default function UserHistory() {
       ? words.slice(0, wordLimit).join(" ") + "..."
       : text;
   };
+
+  const handleDelete = async (historyId) => {
+    try{
+      const response = await fetch(`http://localhost:4000/api/historydelete/${historyId}`, {
+        method: "DELETE",  
+      });
+      if(!response.ok){
+        toast.error("Failed to delete resume");
+        throw new Error("Failed to delete resume");
+      }
+      toast.success("Resume deleted successfully");
+      setHistory((prevHistories) => prevHistories.filter((history) => history._id !== historyId));
+    } catch (err) {
+      toast.error("Failed to delete resume");
+    }
+  }
   return (
     <div className="w-full text-white">
       <ul className="space-y-6 sm:space-y-4 sm:flex sm:flex-col sm:gap-4">
         {history.map((item, index) => (
           <Link to={`/history/${item._id}`}>
           <li key={index} className="border border-zinc-600 p-4 rounded bg-zinc-900 ">
-            <p className='text-xl mb-3'><strong> {item.companyName}</strong></p>
+            <div className='flex'>
+              <p className='text-xl mb-3'><strong> {item.companyName}</strong></p>
+              <div className="rounded ml-auto flex w-[30px] h-[30px] justify-center items-center hover:bg-zinc-800 ">
+                <button className="w-[20px] h-[20px]" onClick={(e)=>{
+                  e.stopPropagation(); 
+                  e.preventDefault();
+                  handleDelete(item._id)}}>
+                  <img src={bin} alt="delete" width={30} height={30}/></button>
+              </div>
+            </div>
+            
             <div className='flex gap-2'>
                 <p className='w-[700px]'>{trimText(item.jobDescription)}</p>
                 <div  className="overflow-hidden rounded shadow-lg w-full max-w-[500px] h-[300px]">
