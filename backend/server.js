@@ -13,7 +13,14 @@ import historyRoute from "./Routes/historyRoute.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" })); // allow React app to access API
+app.use(
+  cors({
+    origin: [
+      "https://resumemaker-production-41e6.up.railway.app",
+      "http://localhost:3000",
+    ],
+  })
+); // allow React app to access API
 
 app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
