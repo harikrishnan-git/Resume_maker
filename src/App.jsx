@@ -12,6 +12,8 @@ import ResumeDetails from "./Pages/ResumeDetails";
 import ViewResume from "./Pages/ViewResume";
 import Navbar from "./Components/Navbar";
 import HistoryDetails from "./Pages/HistoryDetails";
+import check from "./assets/check.png";
+import close from "./assets/close.png";
 
 function App() {
   return (
@@ -31,7 +33,26 @@ function App() {
         <Route path="/view-resume" element={<ViewResume />}></Route>
         {/* Add more routes as needed */}
       </Routes>
-      <Toaster />
+      <Toaster toastOptions={{
+        // Global styles
+        style: {
+          background: "#000000", // Tailwind white
+          color: "#ffffff", // Tailwind black
+          fontWeight: "500",
+          border: "1px solid #52525B", // Tailwind zinc-600
+          fontSize: "14px",
+        },
+        // Success toast styles
+        success: {
+          icon: <img src={check} alt="check" className="w-6 h-6" />, 
+          duration: 4000,
+        },
+        // Error toast styles
+        error: {
+          icon: <img src={close} alt="close" className="w-4 h-4" />,
+          duration: 4000,
+        },
+      }}/>
     </BrowserRouter>
   );
 }

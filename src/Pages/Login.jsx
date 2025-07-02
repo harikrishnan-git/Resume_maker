@@ -29,8 +29,8 @@ export default function Login() {
   };
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
-      <div className="bg-gray-900 text-white w-full max-w-md p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-400">
+      <div className="bg-zinc-900 border border-zinc-600 text-white w-full max-w-md p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold mb-6 text-center text-white">
           Login
         </h2>
 
@@ -43,7 +43,7 @@ export default function Login() {
             id="email"
             type="text"
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300"
             placeholder="Enter your email"
           />
         </div>
@@ -57,10 +57,10 @@ export default function Login() {
             id="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300"
             placeholder="Enter your password"
           />
-          <Link to="/signup" className=" text-indigo-400 hover:underline">
+          <Link to="/signup" className=" text-gray-300 hover:underline">
             Not registered?
           </Link>
         </div>
@@ -68,7 +68,7 @@ export default function Login() {
         {/* Login Button */}
         <button
           onClick={handleLogin}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-md font-semibold transition"
+          className="w-full bg-white hover:bg-gray-300 text-black py-3 rounded-md font-semibold transition"
         >
           Login
         </button>
