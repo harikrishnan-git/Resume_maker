@@ -149,17 +149,14 @@ export default function ResumeForm() {
         languages,
       };
 
-      const res = await fetch(
-        `http://localhost:4000/api/user/${userId}/create-resume`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(resumeData),
-        }
-      );
+      const res = await fetch(`/api/user/${userId}/create-resume`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(resumeData),
+      });
 
       navigate("/dashboard");
     } catch (error) {
@@ -169,7 +166,6 @@ export default function ResumeForm() {
 
   return (
     <div className="mt-5 max-w-7xl mx-auto bg-black border-1 border-white rounded-lg shadow-lg p-8  space-y-10 text-gray-200">
-
       {/* Resume Type Selection */}
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-white">
@@ -268,9 +264,7 @@ export default function ResumeForm() {
 
       {/* Education */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Education
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Education</h2>
         <div className="space-y-6">
           {educationFields.map((field, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -320,9 +314,7 @@ export default function ResumeForm() {
 
       {/* Experience */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Experience
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Experience</h2>
         <div className="space-y-6">
           {expForm.map((field, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -364,9 +356,7 @@ export default function ResumeForm() {
 
       {/*Projects*/}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Projects
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Projects</h2>
         <div className="space-y-6">
           {projects.map((field, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -407,9 +397,7 @@ export default function ResumeForm() {
 
       {/* Referral */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Referral
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Referral</h2>
         <div className="space-y-3">
           {referral.map((ref, index) => (
             <input
@@ -457,9 +445,7 @@ export default function ResumeForm() {
 
       {/* Achievements */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Achievements
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Achievements</h2>
         <div className="space-y-3">
           {achievements.map((ach, index) => (
             <input
@@ -482,9 +468,7 @@ export default function ResumeForm() {
 
       {/*Publications*/}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Publications
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Publications</h2>
         <div className="space-y-3">
           {publications.map((ach, index) => (
             <input
@@ -507,9 +491,7 @@ export default function ResumeForm() {
 
       {/* Languages */}
       <section>
-        <h2 className="text-2xl font-semibold mb-6 text-white">
-          Languages
-        </h2>
+        <h2 className="text-2xl font-semibold mb-6 text-white">Languages</h2>
         <div className="space-y-3">
           {languages.map((lang, index) => (
             <input

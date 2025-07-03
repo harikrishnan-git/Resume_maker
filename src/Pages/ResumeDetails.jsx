@@ -26,9 +26,7 @@ export default function ResumeDetails() {
   useEffect(() => {
     const fetchResume = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:4000/api/resume/${id}`
-        );
+        const response = await axios.get(`/api/resume/${id}`);
         const data = response.data;
 
         data.skills = data.skills?.map((s) =>
@@ -80,18 +78,15 @@ export default function ResumeDetails() {
         arr?.map((item) =>
           typeof item === "string" ? item : item.name || item
         );
-      const res = await axios.put(
-        `http://localhost:4000/api/resume/${id}/update`,
-        {
-          ...resume,
-          type: resume.type || "General", // fallback type
-          skills: normalizeArray(resume.skills),
-          certifications: normalizeArray(resume.certifications),
-          achievements: normalizeArray(resume.achievements),
-          referral: normalizeArray(resume.referral),
-          languages: normalizeArray(resume.languages),
-        }
-      );
+      const res = await axios.put(`/api/resume/${id}/update`, {
+        ...resume,
+        type: resume.type || "General", // fallback type
+        skills: normalizeArray(resume.skills),
+        certifications: normalizeArray(resume.certifications),
+        achievements: normalizeArray(resume.achievements),
+        referral: normalizeArray(resume.referral),
+        languages: normalizeArray(resume.languages),
+      });
       setResume(res.data);
       toast.success("saved details");
       navigate("/dashboard");
@@ -118,10 +113,10 @@ export default function ResumeDetails() {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this resume?")) {
       try {
-        const response = await fetch(`http://localhost:4000/api/resume/${id}`,{
+        const response = await fetch(`http://localhost:4000/api/resume/${id}`, {
           method: "DELETE",
         });
-        if(!response.ok){
+        if (!response.ok) {
           toast.error("Failed to delete resume");
           throw new Error("Failed to delete resume");
         }
@@ -143,14 +138,13 @@ export default function ResumeDetails() {
     <div className="bg-black min-h-screen text-white p-8">
       <div className="max-w-7xl mx-auto bg-black border-1 border-white p-6 rounded-lg shadow">
         <div className="flex mb-6">
-          <h1 className="text-3xl font-bold text-center">
-            Resume Details
-          </h1>
+          <h1 className="text-3xl font-bold text-center">Resume Details</h1>
           <div className="rounded ml-auto -mt-2 flex w-[50px] h-[50px] justify-center items-center hover:bg-zinc-800 ">
-            <button onClick={handleDelete}><img src={bin} alt="delete" width={30} height={30}/></button>
+            <button onClick={handleDelete}>
+              <img src={bin} alt="delete" width={30} height={30} />
+            </button>
           </div>
         </div>
-        
 
         {/*Contact info*/}
         <div className="mb-6">

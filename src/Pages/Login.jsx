@@ -10,14 +10,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const handleLogin = async () => {
     try {
-      const res = await fetch(
-        "https://resumemaker-production-41e6.up.railway.app/api/user/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const res = await fetch("/api/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
       localStorage.setItem("userId", data.userId);

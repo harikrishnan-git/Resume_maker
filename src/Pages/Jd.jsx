@@ -22,15 +22,12 @@ export default function Jd() {
           navigate("/login");
           return;
         }
-        const res = await fetch(
-          `http://localhost:4000/api/user/${userId}/resume`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await fetch(`/api/user/${userId}/resume`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         const updated = data.map((item) => item.type);
         setResumeTypes(updated);
@@ -50,19 +47,16 @@ export default function Jd() {
     if (companyName && jobDescription.trim() && selectedType !== "") {
       setLoading(true);
       try {
-        const res = await fetch(
-          `http://localhost:4000/api/user/${userId}/optimize-resume`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              jd: jobDescription,
-              type: selectedType,
-            }),
-          }
-        );
+        const res = await fetch(`/api/user/${userId}/optimize-resume`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            jd: jobDescription,
+            type: selectedType,
+          }),
+        });
         const data = await res.json();
 
         if (!res.ok) {
@@ -80,19 +74,16 @@ export default function Jd() {
         const resumeSkills = data.optimizedResume.skills || [];
         console.log("Resume skills:", resumeSkills);
         try {
-          const skillRes = await fetch(
-            `http://localhost:4000/api/user/${userId}/lacking-skills`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                jd: jobDescription,
-                resumeSkills,
-              }),
-            }
-          );
+          const skillRes = await fetch(`/api/user/${userId}/lacking-skills`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              jd: jobDescription,
+              resumeSkills,
+            }),
+          });
 
           const skillData = await skillRes.json();
           if (skillRes.ok) {

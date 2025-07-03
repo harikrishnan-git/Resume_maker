@@ -27,7 +27,7 @@ export default function viewResume() {
     console.log("HTML content for PDF:", html);
 
     const res = await axios.post(
-      "http://localhost:4000/api/generate-pdf",
+      "/api/generate-pdf",
       { html },
       {
         responseType: "blob",
@@ -51,13 +51,9 @@ export default function viewResume() {
 
     // Step 3: Upload PDF with metadata to MongoDB
     try {
-      const uploadRes = await axios.post(
-        "http://localhost:4000/api/save-resume",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const uploadRes = await axios.post("/api/save-resume", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       if (uploadRes.status === 200) {
         console.log("Resume saved successfully to DB");
