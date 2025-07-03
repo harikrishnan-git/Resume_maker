@@ -28,10 +28,12 @@ app.use("/api", resumeRoutes);
 app.use("/api/user", jdRoutes);
 app.use("/api", historyRoute);
 
+const PORT = process.env.PORT || 4000;
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
       console.log("connected to db and listening on port 4000");
     });
   })
