@@ -47,7 +47,7 @@ export default function Jd() {
     if (companyName && jobDescription.trim() && selectedType !== "") {
       setLoading(true);
       try {
-        const res = await fetch(`/api/user/${userId}/optimize-resume`, {
+        const res = await fetch(`/api/jd/${userId}/optimize-resume`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default function Jd() {
         const resumeSkills = data.optimizedResume.skills || [];
         console.log("Resume skills:", resumeSkills);
         try {
-          const skillRes = await fetch(`/api/user/${userId}/lacking-skills`, {
+          const skillRes = await fetch(`/api/jd/${userId}/lacking-skills`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

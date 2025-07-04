@@ -39,7 +39,7 @@ app.use(
 
 app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
-app.use("/api/user", jdRoutes);
+app.use("/api/jd", jdRoutes);
 app.use("/api", historyRoute);
 
 const PORT = process.env.PORT || 4000;
