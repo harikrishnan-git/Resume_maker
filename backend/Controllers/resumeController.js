@@ -3,6 +3,10 @@ import User from "../Model/userModel.js";
 import { chromium } from "playwright";
 import History from "../Model/historyModel.js";
 import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // POST /api/user/:userId/resume
 export const createResume = async (req, res) => {
