@@ -26,19 +26,24 @@ export default function viewResume() {
     const html = pdfRef.current.innerHTML;
     console.log("HTML content for PDF:", html);
 
-    const res = await axios.post(
+    /*const res = await axios.post(
       "/api/generate-pdf",
       { html },
       {
         responseType: "blob",
       }
-    );
+    );*/
+    const res = await fetch("/api/generate-pdf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ html }),
+    });
 
     if (res.status !== 200) {
       toast.error("Failed to generate PDF");
       return;
     }
-    const pdfBlob = res.data;
+    const pdfBlob = res.blob();
     const formData = new FormData();
 
     formData.append(
