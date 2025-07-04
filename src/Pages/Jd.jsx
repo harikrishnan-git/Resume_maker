@@ -1,18 +1,47 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useRef } from "react";
+import template1 from "../assets/template1.jpeg";
+import template2 from "../assets/template2.jpeg";
+import template3 from "../assets/template3.jpeg";
 
 export default function Jd() {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const [loading, setLoading] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState("Sb2nov");
+  const [selectedTemplate, setSelectedTemplate] = useState("template1");
   const [companyName, setCompanyName] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [resumeTypes, setResumeTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const [lackingSkills, setLackingSkills] = useState("");
 
+  const templateScrollRef = useRef(null);
+  const [hoveredTemplate, setHoveredTemplate] = useState(null);
+  const [previewImage, setPreviewImage] = useState(0);
+  const [templatePage, setTemplatePage] = useState(0);
+  const templatesPerPage = 3;
+  const templates = [
+    { id: "template1", name: "Template 1", image: template1 },
+    { id: "template2", name: "Template 2", image: template2 },
+    { id: "template3", name: "Template 3", image: template3 },
+  ];
+  const currentTemplates = templates.slice(
+    templatePage * templatesPerPage,
+    (templatePage + 1) * templatesPerPage
+  );
+
+  const scrollTemplates = (direction) => {
+    const scrollAmount = 200;
+    if (templateScrollRef.current) {
+      if (direction === "left") {
+        templateScrollRef.current.scrollLeft -= scrollAmount;
+      } else {
+        templateScrollRef.current.scrollLeft += scrollAmount;
+      }
+    }
+  };
   useEffect(() => {
     const getResumeTypes = async () => {
       setLoading(true);
@@ -218,6 +247,7 @@ export default function Jd() {
             </div>
 
             {/* Resume Template */}
+            {/*
             <div className="flex flex-col">
               <label htmlFor="template" className="text-white mb-2 font-medium">
                 Resume Template <span className="text-red-500">*</span>
@@ -234,6 +264,82 @@ export default function Jd() {
                 <option value="template3">Template3</option>
               </select>
             </div>
+          */}
+
+            <div className="flex flex-col relative mt-4">
+              <label className="text-white mb-4 font-medium">
+                Resume Template <span className="text-red-500">*</span>
+              </label>
+
+              <div className="relative w-full">
+                {/* Left Arrow */}
+                <button
+                  onClick={() => scrollTemplates("left")}
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800 bg-opacity-70 hover:bg-opacity-90 rounded-full"
+                >
+                  <span className="text-white text-2xl">&#8592;</span>
+                </button>
+
+                {/* Scrollable Template Container */}
+                <div
+                  ref={templateScrollRef}
+                  className="flex overflow-x-auto gap-4 scrollbar-hide px-10"
+                  style={{ scrollBehavior: "smooth", scrollbarWidth: "none" }}
+                >
+                  {templates.map((template) => (
+                    <div
+                      key={template.id}
+                      className="relative flex-shrink-0 w-40"
+                      onMouseEnter={() => setHoveredTemplate(template.id)}
+                      onMouseLeave={() => setHoveredTemplate(null)}
+                    >
+                      <div
+                        className={`group cursor-pointer rounded-lg overflow-hidden border-2 ${
+                          selectedTemplate === template.id
+                            ? "border-blue-500 ring-4 ring-blue-500"
+                            : "border-zinc-700"
+                        }`}
+                        onClick={() => setSelectedTemplate(template.id)}
+                      >
+                        <img
+                          src={template.image}
+                          alt={template.name}
+                          className="w-full h-40 object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-center text-sm py-1 text-white">
+                          {template.name}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {hoveredTemplate && (
+                    <div
+                      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
+                      onMouseLeave={() => setHoveredTemplate(null)}
+                    >
+                      <div className="bg-white rounded-xl p-2 shadow-2xl border border-zinc-400">
+                        <img
+                          src={
+                            templates.find((t) => t.id === hoveredTemplate)
+                              .image
+                          }
+                          alt="Preview"
+                          className="w-96 h-auto rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Arrow */}
+                <button
+                  onClick={() => scrollTemplates("right")}
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-2 bg-gray-800 bg-opacity-70 hover:bg-opacity-90 rounded-full"
+                >
+                  <span className="text-white text-2xl">&#8594;</span>
+                </button>
+              </div>
+            </div>
 
             <div className="flex justify-center">
               <button
@@ -245,6 +351,18 @@ export default function Jd() {
               </button>
             </div>
           </form>
+          {previewImage && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+              onClick={() => setPreviewImage(null)}
+            >
+              <img
+                src={previewImage}
+                alt="Enlarged Template Preview"
+                className="w-1/2 h-auto rounded-xl border-4 border-white shadow-xl transition-transform duration-300"
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

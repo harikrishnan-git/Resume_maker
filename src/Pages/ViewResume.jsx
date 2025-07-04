@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import Plain from "../Components/templates/Plain";
 import Sb2nov from "../Components/templates/Sb2nov";
+import Template1 from "../Components/templates/Template1";
 import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,10 +16,11 @@ export default function viewResume() {
   const pdfRef = useRef(null);
   const templates = {
     plain: <Plain />,
-    sb2nov: <Sb2nov />,
+    //  sb2nov: <Sb2nov />,
+    template1: <Template1 />,
     template3: <Template3 />,
   };
-  const selectedTemplate = templates[resumeTemplate] || <Sb2nov />;
+  const selectedTemplate = templates[resumeTemplate] || <Template1 />; //<Sb2nov />;
 
   // Function to download the resume as PDF
   const downloadResume = async () => {
