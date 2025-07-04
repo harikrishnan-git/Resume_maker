@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build && node backend/server.js",
     "heroku-postbuild": "npm run build",
+    "postinstall": "npx playwright install --with-deps",
     "server": "node backend/server.js",
     "dev": "vite",
     "build": "vite build",
