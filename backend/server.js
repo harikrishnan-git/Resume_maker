@@ -19,7 +19,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static frontend
 app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("*", (req, res) => {
@@ -49,7 +48,7 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(PORT, () => {
-      console.log("connected to db and listening on port ${PORT}");
+      console.log(`connected to db and listening on port ${PORT}`);
     });
   })
   .catch((error) => {
