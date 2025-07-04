@@ -29,7 +29,10 @@ export default function Dashboard() {
 
     const fetchResumes = async () => {
       try {
-        const res = await fetch(`/api/user/${userId}/resume`);
+        const res = await fetch(`/api/user/${userId}/resume`,{
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
         const data = await res.json();
         if (res.ok) {
           setResumes(data);
