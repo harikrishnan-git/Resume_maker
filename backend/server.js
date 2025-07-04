@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://resumemaker-production-41e6.up.railway.app",
+      "https://resumemaker-production-61ec.up.railway.app",
       "http://localhost:3000",
       "http://localhost:5173",
     ],
