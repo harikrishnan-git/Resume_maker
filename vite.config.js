@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://resumemaker-production-61ec.up.railway.app/api",
+        target: "https://resumemaker-production-61ec.up.railway.app",
         changeOrigin: true,
         secure: false,
       },
