@@ -10,7 +10,10 @@ export default function UserHistory() {
   useEffect(() => {
     const fetchUserHistory = async () => {
       try {
-        const response = await fetch(`/api/${userId}/history`);
+        const response = await fetch(`/api/${userId}/history`,{
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
