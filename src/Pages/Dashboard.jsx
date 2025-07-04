@@ -15,7 +15,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/user/${userId}`);
+        const res = await fetch(`/api/user/${userId}`);
         const data = await res.json();
         if (res.ok) {
           setUserName(data.name);

@@ -8,7 +8,7 @@ export default function HistoryDetails() {
     const [HistoryDetails,setHistoryDetails] = useState(null);
     useEffect(() => {
         const fetchHistoryDetails = async () => {
-            const response = await fetch(`http://localhost:4000/api/history/${id}`);
+            const response = await fetch(`/api/history/${id}`);
             if (!response.ok) {
                 throw new Error('Could not fetch history details');
             }
@@ -29,7 +29,7 @@ export default function HistoryDetails() {
 
    const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/historydelete/${id}`, {
+      const response = await fetch(`/api/historydelete/${id}`, {
         method: 'DELETE',
       });
   

@@ -113,7 +113,7 @@ export default function ResumeDetails() {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this resume?")) {
       try {
-        const response = await fetch(`http://localhost:4000/api/resume/${id}`, {
+        const response = await fetch(`/api/resume/${id}`, {
           method: "DELETE",
         });
         if (!response.ok) {
