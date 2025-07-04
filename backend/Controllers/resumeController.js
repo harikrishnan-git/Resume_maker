@@ -104,7 +104,8 @@ export const generatePDF = async (req, res) => {
   const { html } = req.body;
 
   try {
-    const css = await fs.readFile("./style/output.css", "utf-8");
+    const cssPath = path.join(__dirname, "../style/output.css");
+    const css = await fs.readFile(cssPath, "utf-8");
     if (!css) {
       console.error("CSS file not found or empty on backend");
       return res.status(500).send("CSS file not found or empty on backend");
