@@ -13,18 +13,8 @@ import historyRoute from "./Routes/historyRoute.js";
 const app = express();
 
 //changes for deployment
-/*import path from "path";
+import path from "path";
 import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-app.use(express.static(path.join(__dirname, "../dist")));
-
-app.get("/{*any}", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist", "index.html"));
-});*/
-//
 
 app.use(express.json());
 app.use(
@@ -41,6 +31,16 @@ app.use("/api/user", userRoutes);
 app.use("/api", resumeRoutes);
 app.use("/api/jd", jdRoutes);
 app.use("/api", historyRoute);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+  res.sendFile(path.join(__dirname, "../dist", "index.html"));
+});
 
 const PORT = process.env.PORT || 4000;
 
