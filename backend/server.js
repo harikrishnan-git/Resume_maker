@@ -13,7 +13,7 @@ import historyRoute from "./Routes/historyRoute.js";
 const app = express();
 
 //changes for deployment
-import path from "path";
+/*import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("/{*any}", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist", "index.html"));
-});
+});*/
 //
 
 app.use(express.json());
