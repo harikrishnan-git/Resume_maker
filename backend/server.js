@@ -37,7 +37,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "../dist")));
 
-app.get("*", (req, res, next) => {
+app.get(/^\/(?!api).*/, (req, res, next) => {
   if (req.path.startsWith("/api")) return next();
   res.sendFile(path.join(__dirname, "../dist", "index.html"));
 });
