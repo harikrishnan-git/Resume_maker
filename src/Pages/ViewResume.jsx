@@ -5,6 +5,7 @@ import Template3 from "../Components/templates/Template3";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LackingSkills from "../Components/LackingSkills";
+import { toast } from "react-hot-toast";
 
 export default function viewResume() {
   // Get resume from local storage
@@ -43,7 +44,7 @@ export default function viewResume() {
       toast.error("Failed to generate PDF");
       return;
     }
-    const pdfBlob = res.blob();
+    const pdfBlob = await res.blob();
     const formData = new FormData();
 
     formData.append(
@@ -71,7 +72,7 @@ export default function viewResume() {
 
     setLoading(false);
 
-    const url = URL.createObjectURL(new Blob([res.data]));
+    const url = URL.createObjectURL(pdfBlob);
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", "resume.pdf");
