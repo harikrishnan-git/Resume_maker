@@ -12,7 +12,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build:template": "npx @tailwindcss/cli -i ./src/App.css -o ./backend/style/output.css --minify --content './src/Components/templates/*.jsx'"
+    "build:template": "npx @tailwindcss/cli -i ./src/App.css -o ./backend/style/output.css --minify --content './src/Components/templates/*.jsx'",
+    "test": "playwright test --config=playwright.config.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
