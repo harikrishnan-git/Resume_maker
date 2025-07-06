@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "npm run build && node backend/server.js",
+    "local": "concurrently \"npm run server\" \"npm run dev\"",
     "heroku-postbuild": "npm run build",
     "postinstall": "npx playwright install chromium --with-deps",
     "server": "node backend/server.js",
@@ -56,6 +57,7 @@
     "postcss": "^8.5.6",
     "react-icons": "^5.5.0",
     "tailwindcss": "^4.1.11",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "wait-on": "^8.0.3"
   }
 }

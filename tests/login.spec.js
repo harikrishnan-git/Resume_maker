@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 
 test("Check login page", async ({ page }) => {
   // Navigate to the login page
-  await page.goto("https://resumemaker-production-61ec.up.railway.app/login");
+  await page.goto("/login");
 
   // Check if the title is correct
   await expect(page.getByText("Login").first()).toBeVisible();
