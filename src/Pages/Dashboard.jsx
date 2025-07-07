@@ -8,6 +8,7 @@ export default function Dashboard() {
   const userId = localStorage.getItem("userId");
   const [username, setUserName] = useState("");
   const [resumes, setResumes] = useState([]);
+  const [history, setHistory] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("token") ? true : false
   );
@@ -15,10 +16,10 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const res = await fetch(`/api/user/${userId}`,{
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+        const res = await fetch(`/api/user/${userId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         const data = await res.json();
         if (res.ok) {
           setUserName(data.name);
@@ -32,10 +33,10 @@ export default function Dashboard() {
 
     const fetchResumes = async () => {
       try {
-        const res = await fetch(`/api/user/${userId}/resume`,{
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+        const res = await fetch(`/api/user/${userId}/resume`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         const data = await res.json();
         if (res.ok) {
           setResumes(data);
@@ -47,9 +48,27 @@ export default function Dashboard() {
       }
     };
 
+    const fetchUserHistory = async () => {
+      try {
+        const response = await fetch(`/api/${userId}/history`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setHistory(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching user history:", error);
+      }
+    };
+
     if (userId) {
       fetchUserName();
       fetchResumes();
+      fetchUserHistory();
     } else {
       toast.error(
         "You are not logged in. Please log in to access your dashboard."
@@ -94,12 +113,16 @@ export default function Dashboard() {
       >
         + Create New Profile
       </Link>
-      <div className="w-full max-w-[1240px] mb-8">
-        <h2 className="text-2xl font-bold mb-4 text-white">
-          {isAuthenticated ? "My Resumes" : ""}
-        </h2>
-        <UserHistory />
-      </div>
+      {history.length > 0 ? (
+        <div className="w-full max-w-[1240px] mb-8">
+          <h2 className="text-2xl font-bold mb-4 text-white">
+            {isAuthenticated ? "My Resumes" : ""}
+          </h2>
+          <UserHistory history={history} setHistory={setHistory} />
+        </div>
+      ) : (
+        <br />
+      )}
 
       <div className="w-full max-w-[1240px]">
         <h2 className="text-2xl font-bold mb-4 text-white">

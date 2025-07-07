@@ -3,30 +3,8 @@ import { Link } from "react-router-dom";
 import bin from "../assets/bin.png";
 import toast from "react-hot-toast";
 
-export default function UserHistory() {
+export default function UserHistory({ history, setHistory }) {
   const userId = localStorage.getItem("userId");
-  const [history, setHistory] = useState([]);
-
-  useEffect(() => {
-    const fetchUserHistory = async () => {
-      try {
-        const response = await fetch(`/api/${userId}/history`,{
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setHistory(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching user history:", error);
-      }
-    };
-
-    fetchUserHistory();
-  }, []);
 
   const getPdfBlobUrl = (pdfBuffer) => {
     const byteArray = new Uint8Array(pdfBuffer.data);
