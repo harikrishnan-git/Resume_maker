@@ -83,8 +83,8 @@ export default function viewResume() {
   // Check if JD is provided, if not redirect to JD page
   useEffect(() => {
     if (!resume) {
-      toast.error("Create profile first");
-      navigate("/resume");
+      toast.error("Create JD first");
+      navigate("/JD");
     }
   }, []);
 
