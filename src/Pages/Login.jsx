@@ -1,11 +1,12 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useAuthContext } from "../Context/authContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async () => {
@@ -17,7 +18,7 @@ export default function Login() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
-      localStorage.setItem("userId", data.userId);
+      login(data.userId);
       localStorage.setItem("token", data.token);
       console.log(data.userId);
       console.log("Logged in!", data);
@@ -68,7 +69,7 @@ export default function Login() {
         {/* Login Button */}
         <button
           onClick={handleLogin}
-          className="w-full bg-white hover:bg-gray-300 text-black py-3 rounded-md font-semibold transition"
+          className="w-full bg-white hover:bg-gray-300 text-black py-3 rounded-md font-semibold transition hover:cursor-pointer"
         >
           Login
         </button>

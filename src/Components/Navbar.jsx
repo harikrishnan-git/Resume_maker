@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
+import { useAuthContext } from "../Context/authContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("token") ? true : false
-  );
+  const { isAuthenticated, logout } = useAuthContext();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear();
-    setIsAuthenticated(false);
+    logout();
     navigate("/");
   };
 
