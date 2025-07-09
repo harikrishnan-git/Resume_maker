@@ -31,6 +31,7 @@ export default function Jd() {
         const data = await res.json();
         const updated = data.map((item) => item.type);
         setResumeTypes(updated);
+        if(updated.length != 0) setSelectedType(updated[0]);
       } catch (error) {
         console.error("Error fetching resume types:", error);
         toast.error("Failed to fetch resume types. Please try again.");
