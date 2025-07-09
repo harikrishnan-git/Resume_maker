@@ -22,7 +22,6 @@ A modern, responsive web application that allows users to create professional re
 - **Frontend:** React (with Tailwind CSS, shadcn/ui)
 - **PDF Export:** Playwright (Node.js backend)
 - **Styling:** Tailwind CSS
-- **Optional Tools:** jsPDF + html2canvas (deprecated for PDF generation)
 
 ---
 
