@@ -78,7 +78,7 @@ export default function Register() {
         {/* Register Button */}
         <button
           onClick={handleRegister}
-          className="w-full bg-white hover:bg-gray-300 text-black py-3 rounded-md font-semibold transition"
+          className="w-full bg-white hover:bg-gray-300 text-black py-3 rounded-md font-semibold transition hover:cursor-pointer"
         >
           Register User
         </button>
