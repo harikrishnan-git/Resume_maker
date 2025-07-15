@@ -8,12 +8,12 @@ A modern, responsive web application that allows users to create professional re
 
 ## 🚀 Features
 
-- ✏️ Edit resume content using a simple, form-based interface  
-- 🧠 Upload a Job Description to get tailored suggestions for your resume  
-- 📂 Import and export your resume data as JSON  
-- 📥 Download high-quality PDF using Playwright-based rendering  
-- 🎨 Responsive, Tailwind CSS-based templates  
-- 🔄 Easily switch templates or customize layout by editing React components  
+- ✏️ Edit resume content using a simple, form-based interface
+- 🧠 Upload a Job Description to get tailored suggestions for your resume
+- 📂 Import and export your resume data as JSON
+- 📥 Download high-quality PDF using Playwright-based rendering
+- 🎨 Responsive, Tailwind CSS-based templates
+- 🔄 Easily switch templates or customize layout by editing React components
 
 ---
 
@@ -48,3 +48,4 @@ npx playwright install
 
 # Start the development server
 npm run dev
+```
