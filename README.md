@@ -10,10 +10,9 @@ A modern, responsive web application that allows users to create professional re
 
 - ✏️ Edit resume content using a simple, form-based interface
 - 🧠 Upload a Job Description to get tailored suggestions for your resume
-- 📂 Import and export your resume data as JSON
 - 📥 Download high-quality PDF using Playwright-based rendering
 - 🎨 Responsive, Tailwind CSS-based templates
-- 🔄 Easily switch templates or customize layout by editing React components
+- 🔄 Easily switch templates or edit generated resumes to suit your needs.
 
 ---
 
